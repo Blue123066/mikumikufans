@@ -115,16 +115,17 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .mx{position:absolute;top:14px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--b);background:var(--s2);color:var(--td);font-size:15px;cursor:pointer;transition:all 0.2s}
 .mx:hover{color:var(--miku);border-color:var(--miku)}
 /* Speech bubble */
-.speech-bubble{position:fixed;z-index:10;background:var(--s2);border:1px solid var(--miku);border-radius:16px;padding:10px 16px;font-size:13px;color:var(--w);box-shadow:0 0 20px var(--mx);animation:sbIn 0.3s ease-out, sbFloat 2.5s ease-in-out forwards;pointer-events:none;max-width:200px;text-align:center;line-height:1.5;white-space:nowrap;will-change:transform,opacity}
-.speech-bubble::after{content:'';position:absolute;bottom:-8px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid var(--miku)}
-.speech-bubble.tail-left{border-radius:16px 16px 16px 4px}
-.speech-bubble.tail-left::after{left:14px;right:auto}
-.speech-bubble.tail-right{border-radius:16px 16px 4px 16px}
-.speech-bubble.tail-right::after{left:auto;right:14px}
-.speech-bubble.tail-top{border-radius:4px 16px 16px 16px}
-.speech-bubble.tail-top::after{bottom:auto;top:-8px;left:50%;transform:translateX(-50%);border-top:none;border-bottom:8px solid var(--miku)}
-.speech-bubble.tail-topleft{border-radius:4px 16px 16px 16px}
-.speech-bubble.tail-topleft::after{bottom:auto;top:-8px;left:20px;border-top:none;border-bottom:8px solid var(--miku)}
+.speech-bubble{position:fixed;z-index:10;background:var(--s2);border:1px solid var(--miku);border-radius:14px;padding:10px 16px;font-size:13px;color:var(--w);box-shadow:0 0 20px var(--mx);animation:sbIn 0.3s ease-out, sbFloat 2.5s ease-in-out forwards;pointer-events:none;max-width:200px;text-align:center;line-height:1.5;white-space:nowrap;will-change:transform,opacity}
+.speech-bubble::after{content:'';position:absolute;width:0;height:0}
+/* Left side: tail points right → */
+.speech-bubble.tail-right::after{top:50%;right:-7px;transform:translateY(-50%);border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:7px solid var(--miku)}
+.speech-bubble.tail-right{border-radius:14px 14px 14px 4px}
+/* Right side: tail points left ← */
+.speech-bubble.tail-left::after{top:50%;left:-7px;transform:translateY(-50%);border-top:6px solid transparent;border-bottom:6px solid transparent;border-right:7px solid var(--miku)}
+.speech-bubble.tail-left{border-radius:14px 14px 4px 14px}
+/* Above: tail points down ▼ */
+.speech-bubble.tail-down::after{bottom:-7px;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-top:7px solid var(--miku)}
+.speech-bubble.tail-down{border-radius:14px 14px 14px 4px}
 @keyframes sbIn{from{opacity:0;transform:translateY(8px) scale(0.85)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes sbFloat{0%{transform:translateY(0)}100%{transform:translateY(-18px)}}
 @keyframes sbOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-10px)}}
@@ -281,25 +282,25 @@ document.getElementById('miku-img').onclick=function(e){
   var bubble=document.createElement('div');bubble.className='speech-bubble';
   bubble.textContent=mikuQuotes[Math.floor(Math.random()*mikuQuotes.length)];
   var rect=this.getBoundingClientRect();
-  // 5 random positions: top-center, top-left, top-right, left, right
+  // 5 random positions: above, above-left, above-right, left, right
   var pos=Math.floor(Math.random()*5);
-  if(pos===0){ // top-center
-    bubble.classList.add('tail-top');
+  if(pos===0){ // above-center, points down ▼
+    bubble.classList.add('tail-down');
     bubble.style.left=(rect.left+rect.width/2-90+Math.random()*30)+'px';
     bubble.style.top=Math.max(60,rect.top-50-Math.random()*15)+'px';
-  }else if(pos===1){ // top-left
-    bubble.classList.add('tail-topleft');
+  }else if(pos===1){ // above-left, points down ▼
+    bubble.classList.add('tail-down');
     bubble.style.left=Math.max(8,rect.left-100-Math.random()*30)+'px';
     bubble.style.top=Math.max(60,rect.top-45-Math.random()*15)+'px';
-  }else if(pos===2){ // top-right
-    bubble.classList.add('tail-top');
+  }else if(pos===2){ // above-right, points down ▼
+    bubble.classList.add('tail-down');
     bubble.style.left=Math.min(window.innerWidth-210,rect.right-80+Math.random()*30)+'px';
     bubble.style.top=Math.max(60,rect.top-45-Math.random()*15)+'px';
-  }else if(pos===3){ // left
+  }else if(pos===3){ // left side, points right →
     bubble.classList.add('tail-right');
     bubble.style.left=Math.max(8,rect.left-140-Math.random()*40)+'px';
     bubble.style.top=(rect.top+rect.height*0.15+Math.random()*25)+'px';
-  }else{ // right
+  }else{ // right side, points left ←
     bubble.classList.add('tail-left');
     bubble.style.left=Math.min(window.innerWidth-210,rect.right+10+Math.random()*40)+'px';
     bubble.style.top=(rect.top+rect.height*0.15+Math.random()*25)+'px';
