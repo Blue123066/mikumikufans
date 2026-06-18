@@ -125,7 +125,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </head>
 <body>
 
+<audio id="bgm" loop preload="auto" src="https://archive.org/download/HatsuneMiku_201802/World%20Is%20Mine.mp3"></audio>
+
 <button class="fbtn" id="firework-btn">&#9834;</button>
+<button class="fbtn" id="music-btn" style="bottom:92px;font-size:13px" onclick="toggleBGM()" title="音乐">&#9835;</button>
 
 <nav class="nav">
   <span class="nb">MIKUMIKUFANS</span>
@@ -306,11 +309,18 @@ document.getElementById('gmclose').onclick=function(){document.getElementById('g
 document.getElementById('gmodal').onclick=function(e){if(e.target===this)this.className='modal'};
 
 // === FIREWORK + CHEER SYSTEM ===
-var cheerCount=0, lastCheerTime=0, comboCount=0;
+var cheerCount=0, lastCheerTime=0, comboCount=0, bgmStarted=false;
 function updateCheerDisplay(){
   var el=document.getElementById('cheer-count');if(el)el.textContent=cheerCount;
 }
+function toggleBGM(){
+  var a=document.getElementById('bgm'),b=document.getElementById('music-btn');
+  if(a.paused){a.play().then(function(){b.style.color='var(--ml)';b.style.borderColor='var(--miku)'}).catch(function(){})}
+  else{a.pause();b.style.color='';b.style.borderColor=''}
+}
 document.getElementById('firework-btn').onclick=function(){
+  // Auto-start music on first firework
+  if(!bgmStarted){var a=document.getElementById('bgm');a.play().then(function(){bgmStarted=true;var b=document.getElementById('music-btn');b.style.color='var(--ml)';b.style.borderColor='var(--miku)'}).catch(function(){})}
   var now=Date.now();
   // Combo: within 600ms = combo++
   if(now-lastCheerTime<600){comboCount++}else{comboCount=0}
