@@ -314,20 +314,31 @@ document.getElementById('firework-btn').onclick=function(){
   },s*180)}
 };
 
-// === GUESTBOOK ===
-var msgs=[];try{msgs=JSON.parse(localStorage.getItem('miku_gb')||'[]')}catch(e){}
-function renderMsgs(){var el=document.getElementById('gbl');if(!el)return;if(!msgs.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--td)">还没有留言 ✦</div>';return}el.innerHTML=msgs.map(function(m){return'<div class="gm"><div class="gma">'+eH(m.name)+'</div><div class="gmt">'+eH(m.msg)+'</div><div class="gmti">'+m.time+'</div></div>'}).join('')}
+// === GUESTBOOK (cloud, shared across all visitors) ===
+var GB_API='https://jsonblob.com/api/jsonBlob/019edb87-a8c2-7667-9946-75c731d0bc77';
+var msgs=[];
+function loadMsgs(cb){
+  fetch(GB_API).then(function(r){return r.json()}).then(function(d){msgs=d;cb()}).catch(function(){msgs=[];cb()});
+}
+function saveMsgs(){
+  fetch(GB_API,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(msgs)}).catch(function(){});
+}
+function renderMsgs(){
+  var el=document.getElementById('gbl');if(!el)return;
+  if(!msgs.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--td)">还没有留言 ✦</div>';return}
+  el.innerHTML=msgs.map(function(m){return'<div class="gm"><div class="gma">'+eH(m.name)+'</div><div class="gmt">'+eH(m.msg)+'</div><div class="gmti">'+m.time+'</div></div>'}).join('');
+}
 function eH(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 document.getElementById('gbb').onclick=function(){
   var n=document.getElementById('gbn').value.trim(),t=document.getElementById('gbt').value.trim();
   if(!n||!t)return alert('请填写昵称和留言');
   msgs.unshift({name:n,msg:t,time:new Date().toLocaleString('zh-CN')});
-  if(msgs.length>50)msgs.length=50;
-  localStorage.setItem('miku_gb',JSON.stringify(msgs));
+  if(msgs.length>100)msgs.length=100;
+  saveMsgs();
   document.getElementById('gbn').value='';document.getElementById('gbt').value='';
   renderMsgs();
 };
-renderMsgs();
+loadMsgs(renderMsgs);
 
 // === SHARE ===
 function share(){var u='https://mymikufans.top';if(navigator.share)navigator.share({title:'MIKUMIKUFANS',text:'6月19日 周五 18:00 · 青岛',url:u}).catch(function(){});else{navigator.clipboard.writeText(u).then(function(){alert('链接已复制！')}).catch(function(){})}}
