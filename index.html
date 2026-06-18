@@ -115,26 +115,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .mx{position:absolute;top:14px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--b);background:var(--s2);color:var(--td);font-size:15px;cursor:pointer;transition:all 0.2s}
 .mx:hover{color:var(--miku);border-color:var(--miku)}
 /* Speech bubble */
-.speech-bubble{position:fixed;z-index:10;background:var(--s2);border:1px solid var(--miku);border-radius:12px;padding:10px 16px;font-size:13px;color:var(--w);box-shadow:0 0 20px var(--mx);animation:sbIn 0.3s ease-out, sbFloat 2.5s ease-in-out forwards;pointer-events:none;max-width:200px;text-align:center;line-height:1.5;white-space:nowrap;will-change:transform,opacity}
-.speech-bubble::after{content:'';position:absolute;width:0;height:0}
-/* Tail positions — all point toward Miku center */
-/* Above: ▼ down */
-.sb-t0::after{bottom:-6px;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid var(--miku)}
-/* Top-right: bottom-left corner ▼ */
-.sb-t1::after{bottom:-6px;left:10px;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid var(--miku)}
-.sb-t1{border-radius:12px 12px 12px 4px}
-/* Right: ◀ left */
-.sb-t2::after{top:50%;left:-6px;transform:translateY(-50%);border-top:6px solid transparent;border-bottom:6px solid transparent;border-right:6px solid var(--miku)}
-.sb-t2{border-radius:12px 4px 12px 12px}
-/* Bottom-right: top-left ▲ */
-.sb-t3::after{top:-6px;left:10px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid var(--miku)}
-.sb-t3{border-radius:4px 12px 12px 12px}
-/* Left: ▶ right */
-.sb-t4::after{top:50%;right:-6px;transform:translateY(-50%);border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:6px solid var(--miku)}
-.sb-t4{border-radius:12px 12px 4px 12px}
-/* Top-left: bottom-right ▼ */
-.sb-t5::after{bottom:-6px;right:10px;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid var(--miku)}
-.sb-t5{border-radius:12px 12px 4px 12px}
+.speech-bubble{position:fixed;z-index:10;background:var(--s2);border:1px solid var(--miku);border-radius:14px;padding:10px 16px;font-size:13px;color:var(--w);box-shadow:0 0 20px var(--mx);animation:sbIn 0.3s ease-out, sbFloat 2.5s ease-in-out forwards;pointer-events:none;max-width:200px;text-align:center;line-height:1.5;white-space:nowrap;will-change:transform,opacity}
 @keyframes sbIn{from{opacity:0;transform:translateY(8px) scale(0.85)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes sbFloat{0%{transform:translateY(0)}100%{transform:translateY(-18px)}}
 @keyframes sbOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-10px)}}
@@ -291,34 +272,16 @@ document.getElementById('miku-img').onclick=function(e){
   var bubble=document.createElement('div');bubble.className='speech-bubble';
   bubble.textContent=mikuQuotes[Math.floor(Math.random()*mikuQuotes.length)];
   var rect=this.getBoundingClientRect();
-  // 6 positions around Miku, all tails point to center
-  var pos=Math.floor(Math.random()*6);
+  // Random position around Miku using angle + distance
   var cxM=rect.left+rect.width/2, cyM=rect.top+rect.height/2;
-  if(pos===0){ // above center
-    bubble.className='speech-bubble sb-t0';
-    bubble.style.left=(cxM-90+Math.random()*40)+'px';
-    bubble.style.top=Math.max(55,rect.top-50-Math.random()*12)+'px';
-  }else if(pos===1){ // top-right
-    bubble.className='speech-bubble sb-t1';
-    bubble.style.left=Math.min(window.innerWidth-210,rect.right-60+Math.random()*35)+'px';
-    bubble.style.top=Math.max(55,rect.top-42-Math.random()*12)+'px';
-  }else if(pos===2){ // right side
-    bubble.className='speech-bubble sb-t2';
-    bubble.style.left=Math.min(window.innerWidth-210,rect.right+8+Math.random()*35)+'px';
-    bubble.style.top=(cyM-35+Math.random()*30)+'px';
-  }else if(pos===3){ // bottom-right
-    bubble.className='speech-bubble sb-t3';
-    bubble.style.left=Math.min(window.innerWidth-210,rect.right-60+Math.random()*35)+'px';
-    bubble.style.top=Math.min(window.innerHeight-60,rect.bottom+8+Math.random()*12)+'px';
-  }else if(pos===4){ // left side
-    bubble.className='speech-bubble sb-t4';
-    bubble.style.left=Math.max(8,rect.left-145-Math.random()*35)+'px';
-    bubble.style.top=(cyM-35+Math.random()*30)+'px';
-  }else{ // top-left
-    bubble.className='speech-bubble sb-t5';
-    bubble.style.left=Math.max(8,rect.left-105-Math.random()*35)+'px';
-    bubble.style.top=Math.max(55,rect.top-42-Math.random()*12)+'px';
-  }
+  var angle = Math.random() * Math.PI * 2;
+  var dist = 100 + Math.random() * 60;
+  var bx = cxM + Math.cos(angle) * dist - 100;
+  var by = cyM + Math.sin(angle) * dist - 20;
+  bx = Math.max(8, Math.min(window.innerWidth - 210, bx));
+  by = Math.max(55, Math.min(window.innerHeight - 60, by));
+  bubble.style.left = bx + 'px';
+  bubble.style.top = by + 'px';
   document.body.appendChild(bubble);
   for(var i=0;i<12;i++){var s=document.createElement('div');s.className='fwp';var cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;var angle=Math.random()*Math.PI*2,dist=30+Math.random()*80,sz=2+Math.random()*4,c=['#39c5bb','#6ee7de','#b3f5f0','#e0fffc'][Math.floor(Math.random()*4)];s.style.cssText='left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;background:'+c+';box-shadow:0 0 '+(sz*2)+'px '+c+';--dx:'+Math.cos(angle)*dist+'px;--dy:'+Math.sin(angle)*dist+'px;--ds:0;--dur:'+(0.5+Math.random()*0.5)+'s';s.style.animationDelay=Math.random()*0.1+'s';document.body.appendChild(s);setTimeout(function(){s.remove()},800)}
   setTimeout(function(){bubble.classList.add('out');setTimeout(function(){bubble.remove()},300)},2500);
