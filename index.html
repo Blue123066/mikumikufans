@@ -125,7 +125,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </head>
 <body>
 
-<audio id="bgm" loop preload="auto" src="bgm.mp3"></audio>
+<audio id="bgm" loop preload="auto" src="https://raw.githubusercontent.com/Blue123066/mikumikufans/main/bgm.mp3"></audio>
 
 <button class="fbtn" id="firework-btn">&#9834;</button>
 <button class="fbtn" id="music-btn" style="bottom:92px;font-size:13px" onclick="toggleBGM()" title="音乐">&#9835;</button>
@@ -178,6 +178,12 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <div class="page" id="details">
   <div class="content-page">
     <div class="st">演出详情</div><div class="ss">EVENT DETAILS</div>
+    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:28px" id="cd-wrap">
+      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-d">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">天</div></div>
+      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-h">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">时</div></div>
+      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-m">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">分</div></div>
+      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-s">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">秒</div></div>
+    </div>
     <div class="dc"><div class="dct">📅 演出时间</div><div class="dcb"><strong>2026年6月19日（周五）</strong><br>入场 17:30 · 开演 18:00 · 预计 2 小时</div></div>
     <div class="dc"><div class="dct">📍 演出场地</div><div class="dcb"><strong>青岛 · 场地待定</strong><br>具体场地将在演出前一周公布</div></div>
     <div class="dc"><div class="dct">🎵 演出曲目</div><div class="dcb">初音ミク经典曲目及 Hery Band 合作曲<br>歌单演出当天公布</div></div>
@@ -386,6 +392,17 @@ loadMsgs(renderMsgs);
 
 // === SHARE ===
 function share(){var u='https://mymikufans.top';if(navigator.share)navigator.share({title:'MIKUMIKUFANS',text:'6月19日 周五 18:00 · 青岛',url:u}).catch(function(){});else{navigator.clipboard.writeText(u).then(function(){alert('链接已复制！')}).catch(function(){})}}
+
+// === COUNTDOWN ===
+(function cd(){
+  var t=new Date('2026-06-19T18:00:00+08:00').getTime(),n=Date.now(),d=Math.max(0,Math.floor((t-n)/864e5)),h=Math.max(0,Math.floor((t-n)/36e5)%24),m=Math.max(0,Math.floor((t-n)/6e4)%60),s=Math.max(0,Math.floor((t-n)/1e3)%60);
+  var el=function(id){return document.getElementById(id)};
+  if(el('cd-d'))el('cd-d').textContent=d;
+  if(el('cd-h'))el('cd-h').textContent=String(h).padStart(2,'0');
+  if(el('cd-m'))el('cd-m').textContent=String(m).padStart(2,'0');
+  if(el('cd-s'))el('cd-s').textContent=String(s).padStart(2,'0');
+  setTimeout(cd,1000);
+})();
 
 // === NAV HIGHLIGHT ===
 function hlNav(){var h=location.hash||'#home';var as=document.querySelectorAll('.nav a');for(var i=0;i<as.length;i++){if(as[i].getAttribute('href')===h){as[i].style.color='var(--miku)';as[i].style.textShadow='0 0 12px var(--mg)'}else{as[i].style.color='';as[i].style.textShadow=''}}if(h==='#guestbook')renderMsgs()}
