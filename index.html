@@ -114,9 +114,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .mx{position:absolute;top:14px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--b);background:var(--s2);color:var(--td);font-size:15px;cursor:pointer;transition:all 0.2s}
 .mx:hover{color:var(--miku);border-color:var(--miku)}
 /* Speech bubble */
-.speech-bubble{position:absolute;z-index:10;background:var(--s2);border:1px solid var(--miku);border-radius:16px 16px 16px 4px;padding:10px 16px;font-size:13px;color:var(--w);box-shadow:0 0 20px var(--mx);animation:sbIn 0.3s ease-out;pointer-events:none;max-width:200px;text-align:center;line-height:1.5}
-.speech-bubble::after{content:'';position:absolute;bottom:-8px;left:12px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid var(--miku)}
-@keyframes sbIn{from{opacity:0;transform:translateY(10px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.speech-bubble{position:fixed;z-index:10;background:var(--s2);border:1px solid var(--miku);border-radius:16px;padding:10px 16px;font-size:13px;color:var(--w);box-shadow:0 0 20px var(--mx);animation:sbIn 0.3s ease-out, sbFloat 2.5s ease-in-out forwards;pointer-events:none;max-width:200px;text-align:center;line-height:1.5;white-space:nowrap}
+.speech-bubble::after{content:'';position:absolute;bottom:-8px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid var(--miku)}
+.speech-bubble.tail-left{border-radius:16px 16px 16px 4px}
+.speech-bubble.tail-left::after{left:14px;right:auto}
+.speech-bubble.tail-right{border-radius:16px 16px 4px 16px}
+.speech-bubble.tail-right::after{left:auto;right:14px}
+@keyframes sbIn{from{opacity:0;transform:translateY(8px) scale(0.85)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes sbFloat{0%{transform:translateY(0)}100%{transform:translateY(-18px)}}
 @keyframes sbOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-10px)}}
 .speech-bubble.out{animation:sbOut 0.3s ease-in forwards}
 </style>
@@ -273,7 +278,16 @@ document.getElementById('miku-img').onclick=function(e){
   var bubble=document.createElement('div');bubble.className='speech-bubble';
   bubble.textContent=mikuQuotes[Math.floor(Math.random()*mikuQuotes.length)];
   var rect=this.getBoundingClientRect();
-  bubble.style.left=(rect.left+rect.width*0.55)+'px';bubble.style.top=(rect.top-10)+'px';
+  // Random side: left or right of Miku
+  var toLeft=Math.random()>0.5;
+  if(toLeft){
+    bubble.classList.add('tail-right');
+    bubble.style.left=Math.max(8,rect.left-140-Math.random()*40)+'px';
+  }else{
+    bubble.classList.add('tail-left');
+    bubble.style.left=Math.min(window.innerWidth-210,rect.right+10+Math.random()*40)+'px';
+  }
+  bubble.style.top=(rect.top+rect.height*0.15+Math.random()*20)+'px';
   document.body.appendChild(bubble);
   // Miku-colored sparkle burst
   for(var i=0;i<12;i++){var s=document.createElement('div');s.className='fwp';var cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;var angle=Math.random()*Math.PI*2,dist=30+Math.random()*80,sz=2+Math.random()*4,c=['#39c5bb','#6ee7de','#b3f5f0','#e0fffc'][Math.floor(Math.random()*4)];s.style.cssText='left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;background:'+c+';box-shadow:0 0 '+(sz*2)+'px '+c+';--dx:'+Math.cos(angle)*dist+'px;--dy:'+Math.sin(angle)*dist+'px;--ds:0;--dur:'+(0.5+Math.random()*0.5)+'s';s.style.animationDelay=Math.random()*0.1+'s';document.body.appendChild(s);setTimeout(function(){s.remove()},800)}
