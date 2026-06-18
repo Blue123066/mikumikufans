@@ -103,6 +103,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .fwp{position:fixed;pointer-events:none;z-index:160;border-radius:50%;animation:fwf var(--dur) cubic-bezier(0.1,0.8,0.3,1) forwards}
 @keyframes fwf{0%{transform:translate(0,0)scale(1);opacity:1}70%{opacity:0.8}100%{transform:translate(var(--dx),var(--dy))scale(var(--ds));opacity:0}}
 .fbtn{position:fixed;bottom:32px;right:32px;width:48px;height:48px;border-radius:50%;background:rgba(14,31,28,0.85);backdrop-filter:blur(10px);border:1px solid rgba(57,197,187,0.3);box-shadow:0 0 16px rgba(57,197,187,0.15);z-index:150;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--miku);transition:all 0.35s;animation:fba 4s ease-in-out infinite}
+.light .fbtn{background:rgba(232,247,245,0.9)}
 .fbtn:hover{border-color:var(--miku);box-shadow:0 0 28px rgba(57,197,187,0.35);color:var(--ml);transform:translateY(-4px)}.fbtn:active{transform:scale(0.88);box-shadow:0 0 36px rgba(57,197,187,0.55);transition:all 0.1s}
 @keyframes fba{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .mplayer{position:fixed;bottom:0;left:0;right:0;z-index:160;background:rgba(8,18,16,0.95);backdrop-filter:blur(16px);border-top:1px solid var(--b);padding:8px 16px;display:flex;align-items:center;gap:12px;transform:translateY(100%);transition:transform 0.3s ease-out}
