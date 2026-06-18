@@ -332,12 +332,12 @@ document.getElementById('firework-btn').onclick=function(){
 
   if(milestone){
     var mb=document.createElement('div');
-    mb.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:200;font-size:28px;font-weight:900;color:#ffe040;text-shadow:0 0 20px #ffe040,0 0 40px #ff4590;pointer-events:none;animation:sbIn 0.3s ease-out, sbFloat 2s ease-in-out forwards;letter-spacing:4px;text-align:center;white-space:nowrap';
+    mb.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:200;font-size:28px;font-weight:900;color:#b3f5f0;text-shadow:0 0 20px #39c5bb,0 0 40px #6ee7de;pointer-events:none;animation:sbIn 0.3s ease-out, sbFloat 2s ease-in-out forwards;letter-spacing:4px;text-align:center;white-space:nowrap';
     mb.textContent=milestone;
     document.body.appendChild(mb);
     setTimeout(function(){mb.classList.add('out');setTimeout(function(){mb.remove()},300)},2000);
     // Extra big sparkle for milestones
-    for(var k=0;k<30;k++){var s=document.createElement('div');s.className='fwp';var cx=vw/2,cy=vh/2;var a=Math.random()*Math.PI*2,d=80+Math.random()*200,sz=3+Math.random()*8,c=['#ffe040','#ff4590','#39c5bb','#fff'][Math.floor(Math.random()*4)];s.style.cssText='left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;background:'+c+';border-radius:50%;box-shadow:0 0 '+(sz*4)+'px '+c+';--dx:'+Math.cos(a)*d+'px;--dy:'+Math.sin(a)*d+'px;--ds:0;--dur:'+(1+Math.random())+'s';s.style.animationDelay=Math.random()*0.2+'s';document.body.appendChild(s);setTimeout(function(){s.remove()},2000)}
+    for(var k=0;k<30;k++){var s=document.createElement('div');s.className='fwp';var cx=vw/2,cy=vh/2;var a=Math.random()*Math.PI*2,d=80+Math.random()*200,sz=3+Math.random()*8,c=['#39c5bb','#6ee7de','#b3f5f0','#e0fffc','#1a8a82'][Math.floor(Math.random()*5)];s.style.cssText='left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;background:'+c+';border-radius:50%;box-shadow:0 0 '+(sz*4)+'px '+c+';--dx:'+Math.cos(a)*d+'px;--dy:'+Math.sin(a)*d+'px;--ds:0;--dur:'+(1+Math.random())+'s';s.style.animationDelay=Math.random()*0.2+'s';document.body.appendChild(s);setTimeout(function(){s.remove()},2000)}
   }
 
   // Fireworks
