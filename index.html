@@ -333,7 +333,7 @@ renderMsgs();
 function share(){var u='https://mymikufans.top';if(navigator.share)navigator.share({title:'MIKUMIKUFANS',text:'6月19日 周五 18:00 · 青岛',url:u}).catch(function(){});else{navigator.clipboard.writeText(u).then(function(){alert('链接已复制！')}).catch(function(){})}}
 
 // === NAV HIGHLIGHT ===
-function hlNav(){var h=location.hash||'#home';var as=document.querySelectorAll('.nav a');for(var i=0;i<as.length;i++){if(as[i].getAttribute('href')===h){as[i].style.color='var(--miku)';as[i].style.textShadow='0 0 12px var(--mg)'}else{as[i].style.color='';as[i].style.textShadow=''}}}
+function hlNav(){var h=location.hash||'#home';var as=document.querySelectorAll('.nav a');for(var i=0;i<as.length;i++){if(as[i].getAttribute('href')===h){as[i].style.color='var(--miku)';as[i].style.textShadow='0 0 12px var(--mg)'}else{as[i].style.color='';as[i].style.textShadow=''}}if(h==='#guestbook')renderMsgs()}
 window.onhashchange=function(){hlNav()};
 hlNav();
 </script>
