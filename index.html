@@ -113,6 +113,12 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .mb{background:var(--s);border:1px solid var(--b);border-radius:14px;max-width:560px;width:90%;max-height:80vh;overflow-y:auto;position:relative;padding:32px 28px;box-shadow:0 0 60px rgba(57,197,187,0.2)}
 .mx{position:absolute;top:14px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--b);background:var(--s2);color:var(--td);font-size:15px;cursor:pointer;transition:all 0.2s}
 .mx:hover{color:var(--miku);border-color:var(--miku)}
+/* Speech bubble */
+.speech-bubble{position:absolute;z-index:10;background:var(--s2);border:1px solid var(--miku);border-radius:16px 16px 16px 4px;padding:10px 16px;font-size:13px;color:var(--w);box-shadow:0 0 20px var(--mx);animation:sbIn 0.3s ease-out;pointer-events:none;max-width:200px;text-align:center;line-height:1.5}
+.speech-bubble::after{content:'';position:absolute;bottom:-8px;left:12px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid var(--miku)}
+@keyframes sbIn{from{opacity:0;transform:translateY(10px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes sbOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-10px)}}
+.speech-bubble.out{animation:sbOut 0.3s ease-in forwards}
 </style>
 </head>
 <body>
@@ -257,8 +263,22 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <div class="modal" id="gmodal"><div class="mb" id="gmcontent"><span class="mx" id="gmclose">&times;</span><div id="gminner"></div></div></div>
 
 <script>
-// === MIKU CLICK BOP ===
-document.getElementById('miku-img').onclick=function(){this.classList.remove('bop');void this.offsetWidth;this.classList.add('bop')};
+// === MIKU CLICK ===
+var mikuQuotes=['世界で一番お姫様！👑','キラキラドキドキ！✨','ミクミクにしてあげる♪','はじめまして、初音ミクです！','一緒に歌おう！🎤','39！Thank you！💚','あなたのハートに届けたい！','今日も一日頑張ろう！','私の歌声、届いてる？','ずっと一緒だよ！'];
+document.getElementById('miku-img').onclick=function(e){
+  this.classList.remove('bop');void this.offsetWidth;this.classList.add('bop');
+  // Remove old bubbles
+  document.querySelectorAll('.speech-bubble').forEach(function(b){b.classList.add('out');setTimeout(function(){b.remove()},300)});
+  // New bubble
+  var bubble=document.createElement('div');bubble.className='speech-bubble';
+  bubble.textContent=mikuQuotes[Math.floor(Math.random()*mikuQuotes.length)];
+  var rect=this.getBoundingClientRect();
+  bubble.style.left=(rect.left+rect.width*0.55)+'px';bubble.style.top=(rect.top-10)+'px';
+  document.body.appendChild(bubble);
+  // Miku-colored sparkle burst
+  for(var i=0;i<12;i++){var s=document.createElement('div');s.className='fwp';var cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;var angle=Math.random()*Math.PI*2,dist=30+Math.random()*80,sz=2+Math.random()*4,c=['#39c5bb','#6ee7de','#b3f5f0','#e0fffc'][Math.floor(Math.random()*4)];s.style.cssText='left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;background:'+c+';box-shadow:0 0 '+(sz*2)+'px '+c+';--dx:'+Math.cos(angle)*dist+'px;--dy:'+Math.sin(angle)*dist+'px;--ds:0;--dur:'+(0.5+Math.random()*0.5)+'s';s.style.animationDelay=Math.random()*0.1+'s';document.body.appendChild(s);setTimeout(function(){s.remove()},800)}
+  setTimeout(function(){bubble.classList.add('out');setTimeout(function(){bubble.remove()},300)},2500);
+};
 
 // === GUEST MODAL ===
 var gd={popipa:{icon:'🎸',name:"Poppin'Party",sub:'ポッピン パーティー',desc:'五位高中女生组成的青春朋克乐队，代表青春、友情与追逐梦想的力量。',songs:'「ときめきエクスペリエンス」「キラキラだとか夢だとか」「STAR BEAT!〜ホシノコドウ〜」',m:[{r:'🎤 主唱/吉他',n:'户山香澄',v:'爱美'},{r:'🎸 主音吉他',n:'花园多惠',v:'大塚纱英'},{r:'🎸 贝斯',n:'牛込里美',v:'西本里美'},{r:'🥁 鼓手',n:'山吹沙绫',v:'大桥彩香'},{r:'🎹 键盘',n:'市谷有咲',v:'伊藤彩沙'}]},roselia:{icon:'🌹',name:'Roselia',sub:'ロゼリア',desc:'以本格派为信念的哥特摇滚乐队，追求极致完美的音乐。',songs:'「BLACK SHOUT」「Determination Symphony」「FIRE BIRD」「R」',m:[{r:'🎤 主唱',n:'凑友希那',v:'相羽爱奈'},{r:'🎸 吉他',n:'冰川纱夜',v:'工藤晴香'},{r:'🎸 贝斯',n:'今井莉莎',v:'中岛由贵'},{r:'🥁 鼓手',n:'宇田川亚子',v:'樱川惠'},{r:'🎹 键盘',n:'白金燐子',v:'志崎桦音'}]},ras:{icon:'⚡',name:'RAISE A SUILEN',sub:'レイズ ア スイレン',desc:'代表最强的电子摇滚乐队，以压倒性能量震撼全场。',songs:'「R·I·O·T」「UNSTOPPABLE」「EXPOSE \'Burn out!!!\'」「DRIVE US CRAZY」',m:[{r:'🎤 主唱/贝斯',n:'LAYER',v:'Raychell'},{r:'🎸 吉他',n:'LOCK',v:'小原莉子'},{r:'🥁 鼓手',n:'MASKING',v:'夏芽'},{r:'🎹 键盘',n:'PAREO',v:'仓知玲凤'},{r:'🎧 DJ/制作',n:'CHU²',v:'纺木吏佐'}]}};
