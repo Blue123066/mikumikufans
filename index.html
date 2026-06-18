@@ -120,7 +120,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .mplayer .mp-progress .mp-fill::after{content:'';position:absolute;right:-6px;top:-4px;width:13px;height:13px;background:var(--ml);border-radius:50%;box-shadow:0 0 8px var(--miku),0 0 16px rgba(57,197,187,0.4),0 2px 4px rgba(0,0,0,0.3);opacity:0;transition:opacity 0.2s}
 .mplayer .mp-progress:hover .mp-fill::after,.mplayer .mp-progress:active .mp-fill::after{opacity:1}
 .footer{text-align:center;padding:40px 20px 64px;font-size:11px;color:var(--td);letter-spacing:3px;border-top:1px solid var(--b);margin-top:20px}
-@media(max-width:740px){.bn{font-size:48px}.bs{font-size:16px;letter-spacing:10px}.pi .pa{font-size:34px}.hero{height:320px}.gg{grid-template-columns:repeat(2,1fr)}.to{grid-template-columns:1fr}.mplayer{padding:6px 10px;gap:8px}.mplayer .mp-btn{width:28px;height:28px;font-size:11px}}
+@media(max-width:740px){.bn{font-size:48px}.bs{font-size:16px;letter-spacing:10px}.pi .pa{font-size:34px}.hero{height:320px}.gg{grid-template-columns:repeat(2,1fr)}.to{grid-template-columns:1fr}.mplayer{padding:6px 10px;gap:8px}.mplayer .mp-btn{width:28px;height:28px;font-size:11px}.guest-grid{grid-template-columns:repeat(2,1fr)!important}}
 /* Modal */
 .modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center}
 .modal.on{display:flex}
@@ -220,7 +220,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <div class="page" id="guests">
   <div class="content-page">
     <div class="st">嘉宾阵容</div><div class="ss">SPECIAL GUESTS</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px">
+    <div class="guest-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">
       <div class="dc" style="text-align:center;cursor:pointer" onclick="showGuest('popipa')"><div style="font-size:40px;margin-bottom:12px">🎸</div><div style="font-size:15px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:6px">Poppin'Party</div><div style="font-size:11px;color:var(--td)">青春朋克 · 户山香澄</div></div>
       <div class="dc" style="text-align:center;cursor:pointer" onclick="showGuest('roselia')"><div style="font-size:40px;margin-bottom:12px">🌹</div><div style="font-size:15px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:6px">Roselia</div><div style="font-size:11px;color:var(--td)">哥特摇滚 · 凑友希那</div></div>
       <div class="dc" style="text-align:center;cursor:pointer" onclick="showGuest('ras')"><div style="font-size:40px;margin-bottom:12px">⚡</div><div style="font-size:15px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:6px">RAISE A SUILEN</div><div style="font-size:11px;color:var(--td)">电子摇滚 · LAYER</div></div>
