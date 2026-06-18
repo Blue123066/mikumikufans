@@ -308,7 +308,7 @@ function showGuest(id){
   bx.innerHTML='<span style="position:absolute;top:14px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--b);background:var(--s2);color:var(--td);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="this.parentElement.parentElement.remove()">×</span>'+h;
   ov.appendChild(bx);document.body.appendChild(ov);
 }
-var mpSongs=[{title:'World is Mine',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/world-is-mine.mp3'},{title:'愛言葉',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/ai-kotoba.mp3'},{title:'蜘蛛糸モノポリー',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/kumo-no-ito.mp3'}];
+var mpSongs=[{title:'愛言葉',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/ai-kotoba.mp3'},{title:'World is Mine',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/world-is-mine.mp3'},{title:'蜘蛛糸モノポリー',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/kumo-no-ito.mp3'}];
 var mpIdx=0,mpPlaying=false,mpStarted=false,mpAudio=document.getElementById('bgm');
 function mpLoad(i){mpIdx=i;mpAudio.src=mpSongs[i].src;mpAudio.load();document.getElementById('mp-title').textContent=mpSongs[i].title}
 function mpToggle(){if(mpAudio.paused){mpAudio.play();mpPlaying=true;mpStarted=true;document.getElementById('mp-play').textContent='⏸';document.getElementById('mplayer').classList.add('on')}else{mpAudio.pause();mpPlaying=false;document.getElementById('mp-play').textContent='▶'}}
