@@ -114,8 +114,9 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .mplayer .mp-btn:hover{border-color:var(--miku);box-shadow:0 0 12px var(--mx)}
 .mplayer .mp-info{flex:1;min-width:0;overflow:hidden}
 .mplayer .mp-title{font-size:11px;color:var(--t);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:1px}
-.mplayer .mp-progress{width:100%;height:3px;background:var(--b);border-radius:2px;margin-top:4px;cursor:pointer;position:relative;overflow:hidden}
-.mplayer .mp-progress .mp-fill{height:100%;background:var(--miku);border-radius:2px;transition:width 0.3s;width:0%;box-shadow:0 0 6px var(--miku)}
+.mplayer .mp-progress{width:100%;height:4px;background:var(--b);border-radius:4px;margin-top:4px;cursor:pointer;position:relative;overflow:visible}
+.mplayer .mp-progress .mp-fill{height:100%;background:linear-gradient(90deg,var(--md),var(--miku),var(--ml));border-radius:4px;transition:width 0.3s;width:0%;box-shadow:0 0 8px var(--miku);position:relative}
+.mplayer .mp-progress .mp-fill::after{content:'';position:absolute;right:-5px;top:-3px;width:10px;height:10px;background:var(--ml);border-radius:50%;box-shadow:0 0 6px var(--miku)}
 .footer{text-align:center;padding:40px 20px 64px;font-size:11px;color:var(--td);letter-spacing:3px;border-top:1px solid var(--b);margin-top:20px}
 @media(max-width:740px){.bn{font-size:48px}.bs{font-size:16px;letter-spacing:10px}.pi .pa{font-size:34px}.hero{height:320px}.gg{grid-template-columns:repeat(2,1fr)}.to{grid-template-columns:1fr}.mplayer{padding:6px 10px;gap:8px}.mplayer .mp-btn{width:28px;height:28px;font-size:11px}}
 /* Modal */
@@ -339,7 +340,7 @@ document.getElementById('gmodal').onclick=function(e){if(e.target===this)this.cl
 var mpSongs=[
   {title:'World is Mine',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/world-is-mine.mp3'},
   {title:'愛言葉',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/ai-kotoba.mp3'},
-  {title:'蜘蛛丝',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/kumo-no-ito.mp3'}
+  {title:'蜘蛛糸モノポリー',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/kumo-no-ito.mp3'}
 ];
 var mpIdx=0, mpPlaying=false, mpStarted=false;
 var mpAudio=document.getElementById('bgm');
