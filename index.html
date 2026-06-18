@@ -9,7 +9,7 @@
 <meta property="og:description" content="6月19日 周五 18:00 · 青岛">
 <meta property="og:url" content="https://mymikufans.top">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+SC:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap');
 :root{--miku:#39c5bb;--ml:#6ee7de;--md:#1a8a82;--mg:rgba(57,197,187,0.5);--mx:rgba(57,197,187,0.12);--s:#0e1f1c;--s2:#132a26;--b:rgba(57,197,187,0.15);--w:#f0faf9;--t:#d0ece8;--td:rgba(208,236,232,0.5);--bg:#081210}
 .light{--s:#f5fdfc;--s2:#e8faf8;--b:rgba(57,197,187,0.2);--w:#0a2a26;--t:#1a3a36;--td:rgba(26,58,54,0.5);--bg:#e8f7f5;--mx:rgba(57,197,187,0.08)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -25,11 +25,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .page:target,.page.home{display:block;animation:pgIn 0.35s ease-out}
 @keyframes pgIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .content-page{max-width:680px;margin:20px auto 40px;padding:0 20px}
-.st{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:6px;background:linear-gradient(135deg,var(--ml),var(--miku),var(--md));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;margin-bottom:8px}
+.st{font-family:'ZCOOL KuaiLe','Noto Sans SC',sans-serif;font-size:48px;letter-spacing:6px;background:linear-gradient(135deg,var(--ml),var(--miku),var(--md));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;margin-bottom:8px}
 .ss{text-align:center;font-size:13px;letter-spacing:6px;color:var(--td);margin-bottom:36px}
-.dc{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:28px 24px;margin-bottom:16px;transition:all 0.25s}
-.dc:hover{border-color:rgba(57,197,187,0.35);box-shadow:0 0 24px var(--mx)}.dc:active{transform:scale(0.98);transition:transform 0.1s}
-.dct{font-size:16px;font-weight:900;color:var(--miku);letter-spacing:2px;margin-bottom:10px}
+.dc{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:28px 24px;margin-bottom:16px;transition:all 0.25s}
+.dct{font-family:'ZCOOL KuaiLe','Noto Sans SC',sans-serif;font-size:16px;font-weight:900;color:var(--miku);letter-spacing:2px;margin-bottom:10px}
 .dcb{font-size:14px;color:var(--td);line-height:1.8}
 .dcb strong{color:var(--w)}
 .poster{max-width:720px;margin:20px auto 40px;background:var(--s);border-radius:8px;overflow:hidden;border:1px solid var(--b)}
@@ -351,7 +350,7 @@ document.getElementById('firework-btn').onclick=function(){
 var GB_API='https://jsonblob.com/api/jsonBlob/019edb87-a8c2-7667-9946-75c731d0bc77',msgs=[],gbLoaded=false;
 function loadMsgs(cb){var d=localStorage.getItem('gb_msgs');if(d){try{msgs=JSON.parse(d)}catch(e){msgs=[]}}else{msgs=[]}gbLoaded=true;cb()}
 function saveMsgs(){localStorage.setItem('gb_msgs',JSON.stringify(msgs))}
-function renderMsgs(){var el=document.getElementById('gbl');if(!el)return;if(!msgs.length){el.innerHTML=gbLoaded?'<div style="text-align:center;padding:40px;color:var(--td)">还没有留言 ✦</div>':'<div style="text-align:center;padding:40px;color:var(--td)">加载中...<br><button onclick="loadMsgs(renderMsgs)" style="margin-top:10px;padding:6px 16px;border:1px solid var(--miku);border-radius:20px;background:transparent;color:var(--miku);cursor:pointer;font-family:inherit;font-size:12px">🔄 点击刷新</button></div>';return}el.innerHTML=msgs.map(function(m,i){return'<div style="background:var(--s);border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:8px;position:relative"><div style="font-size:13px;font-weight:700;color:var(--miku);margin-bottom:4px">'+eH(m.name)+'</div><div class="gb-msg-text" style="font-size:13px;color:var(--td);line-height:1.6">'+eH(m.msg)+'</div><div style="font-size:10px;color:rgba(208,236,232,0.3);margin-top:6px">'+m.time+'</div><div style="position:absolute;top:10px;right:10px;display:flex;gap:6px"><button onclick="editMsg('+i+')" style="font-size:10px;background:none;border:none;color:var(--td);cursor:pointer">✏</button><button onclick="delMsg('+i+')" style="font-size:10px;background:none;border:none;color:var(--td);cursor:pointer">✕</button></div></div>'}).join('')+('<div style="text-align:center;margin-top:12px"><button onclick="loadMsgs(renderMsgs)" style="padding:4px 12px;border:1px solid var(--b);border-radius:12px;background:transparent;color:var(--td);cursor:pointer;font-family:inherit;font-size:10px">🔄 刷新留言</button></div>')}
+function renderMsgs(){var el=document.getElementById('gbl');if(!el)return;if(!msgs.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--td)">还没有留言 ✦</div>';return}el.innerHTML=msgs.map(function(m,i){return'<div style="background:var(--s);border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:8px;position:relative"><div style="font-size:13px;font-weight:700;color:var(--miku);margin-bottom:4px">'+eH(m.name)+'</div><div class="gb-msg-text" style="font-size:13px;color:var(--td);line-height:1.6">'+eH(m.msg)+'</div><div style="font-size:10px;color:rgba(208,236,232,0.3);margin-top:6px">'+m.time+'</div><div style="position:absolute;top:10px;right:10px;display:flex;gap:6px"><button onclick="editMsg('+i+')" style="font-size:10px;background:none;border:none;color:var(--td);cursor:pointer">✏</button><button onclick="delMsg('+i+')" style="font-size:10px;background:none;border:none;color:var(--td);cursor:pointer">✕</button></div></div>'}).join('')}
 function delMsg(i){if(!confirm('确定删除？'))return;msgs.splice(i,1);saveMsgs();renderMsgs()}
 function editMsg(i){var el=document.querySelectorAll('.gb-msg-text')[i];var old=msgs[i].msg;el.innerHTML='<input id="ebox" style="width:100%;padding:6px;background:var(--s2);border:1px solid var(--miku);border-radius:6px;color:var(--t);font-family:inherit;font-size:13px;outline:none" value="'+old.replace(/"/g,'&quot;')+'"><button onclick="saveEdit('+i+')" style="margin-top:4px;padding:4px 12px;background:var(--miku);color:var(--bg);border:none;border-radius:6px;cursor:pointer;font-size:11px">保存</button>'}
 function saveEdit(i){var v=document.getElementById('ebox').value.trim();if(v){msgs[i].msg=v;msgs[i].time=msgs[i].time.replace(' (已编辑)','')+' (已编辑)';saveMsgs();renderMsgs()}}
