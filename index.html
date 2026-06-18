@@ -75,6 +75,12 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .dm-input:focus{border-color:var(--miku)}
 .dm-btn{padding:6px 16px;border:1px solid var(--miku);border-radius:20px;background:transparent;color:var(--miku);cursor:pointer;font-family:inherit;font-size:12px;transition:all 0.3s;white-space:nowrap}
 .dm-btn:hover{background:var(--miku);color:#fff}.dm-btn:active{transform:scale(0.95)}
+/* Speech bubble */
+.speech-bubble{position:fixed;z-index:160;background:var(--s);border:1px solid var(--miku);border-radius:14px 14px 14px 0;padding:8px 14px;font-size:13px;color:var(--t);pointer-events:none;animation:sbIn 0.3s ease-out;box-shadow:0 0 16px var(--mg);max-width:200px;line-height:1.4}
+.speech-bubble.out{animation:sbOut 0.3s ease-in forwards}
+@keyframes sbIn{from{opacity:0;transform:scale(0.7) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes sbOut{from{opacity:1}to{opacity:0;transform:scale(0.7) translateY(-8px)}}
+@keyframes sbFloat{0%{transform:translate(0,0)}50%{transform:translate(0,-10px)}100%{transform:translate(0,-8px);opacity:0}}
 .thm-btn{position:fixed;top:72px;right:10px;z-index:149;width:30px;height:30px;border-radius:50%;border:1px solid var(--b);background:var(--s);color:var(--miku);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all 0.3s}
 .thm-btn:hover{border-color:var(--miku);box-shadow:0 0 12px var(--mx)}.thm-btn:active{transform:scale(0.88);transition:transform 0.1s}
 .gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:24px}
