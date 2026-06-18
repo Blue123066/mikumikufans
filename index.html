@@ -15,7 +15,8 @@ html{scroll-behavior:smooth}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);font-family:'Noto Sans SC',-apple-system,sans-serif;color:var(--t);overflow-x:hidden;min-height:100vh}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(57,197,187,0.08) 0%,transparent 50%),radial-gradient(ellipse at 30% 70%,rgba(26,138,130,0.05) 0%,transparent 50%);pointer-events:none;z-index:0}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,18,16,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:center;gap:0;padding:0;overflow-x:auto}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,18,16,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:flex-start;gap:0;padding:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
 .nav a{display:block;padding:14px 14px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--td);text-decoration:none;white-space:nowrap;transition:all 0.25s;flex-shrink:0}
 .nav a:hover{color:var(--w)}
 .nav .nb{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:4px;color:var(--miku);padding:14px 16px;text-shadow:0 0 8px var(--mg);text-decoration:none;white-space:nowrap;flex-shrink:0}
