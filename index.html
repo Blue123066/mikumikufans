@@ -107,8 +107,17 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .fbtn{position:fixed;bottom:32px;right:32px;width:48px;height:48px;border-radius:50%;background:rgba(14,31,28,0.85);backdrop-filter:blur(10px);border:1px solid rgba(57,197,187,0.3);box-shadow:0 0 16px rgba(57,197,187,0.15);z-index:150;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--miku);transition:all 0.35s;animation:fba 4s ease-in-out infinite}
 .fbtn:hover{border-color:var(--miku);box-shadow:0 0 28px rgba(57,197,187,0.35);color:var(--ml);transform:translateY(-4px)}
 @keyframes fba{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.footer{text-align:center;padding:40px 20px;font-size:11px;color:var(--td);letter-spacing:3px;border-top:1px solid var(--b);margin-top:20px}
-@media(max-width:740px){.bn{font-size:48px}.bs{font-size:16px;letter-spacing:10px}.pi .pa{font-size:34px}.hero{height:320px}.gg{grid-template-columns:repeat(2,1fr)}.to{grid-template-columns:1fr}}
+/* Mini music player */
+.mplayer{position:fixed;bottom:0;left:0;right:0;z-index:160;background:rgba(8,18,16,0.95);backdrop-filter:blur(16px);border-top:1px solid var(--b);padding:8px 16px;display:flex;align-items:center;gap:12px;transform:translateY(100%);transition:transform 0.3s ease-out}
+.mplayer.on{transform:translateY(0)}
+.mplayer .mp-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--b);background:transparent;color:var(--miku);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all 0.2s;flex-shrink:0}
+.mplayer .mp-btn:hover{border-color:var(--miku);box-shadow:0 0 12px var(--mx)}
+.mplayer .mp-info{flex:1;min-width:0;overflow:hidden}
+.mplayer .mp-title{font-size:11px;color:var(--t);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:1px}
+.mplayer .mp-progress{width:100%;height:3px;background:var(--b);border-radius:2px;margin-top:4px;cursor:pointer;position:relative;overflow:hidden}
+.mplayer .mp-progress .mp-fill{height:100%;background:var(--miku);border-radius:2px;transition:width 0.3s;width:0%;box-shadow:0 0 6px var(--miku)}
+.footer{text-align:center;padding:40px 20px 64px;font-size:11px;color:var(--td);letter-spacing:3px;border-top:1px solid var(--b);margin-top:20px}
+@media(max-width:740px){.bn{font-size:48px}.bs{font-size:16px;letter-spacing:10px}.pi .pa{font-size:34px}.hero{height:320px}.gg{grid-template-columns:repeat(2,1fr)}.to{grid-template-columns:1fr}.mplayer{padding:6px 10px;gap:8px}.mplayer .mp-btn{width:28px;height:28px;font-size:11px}}
 /* Modal */
 .modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center}
 .modal.on{display:flex}
@@ -125,10 +134,22 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </head>
 <body>
 
-<audio id="bgm" loop preload="auto" src="https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/bgm.mp3"></audio>
+<audio id="bgm" loop preload="auto"></audio>
 
 <button class="fbtn" id="firework-btn">&#9834;</button>
-<button class="fbtn" id="music-btn" style="bottom:92px;font-size:13px" onclick="toggleBGM()" title="音乐">&#9835;</button>
+
+<!-- Mini music player -->
+<div class="mplayer" id="mplayer">
+  <button class="mp-btn" onclick="mpPrev()" title="上一首">&#9664;</button>
+  <button class="mp-btn" id="mp-play" onclick="mpToggle()" title="播放">&#9654;</button>
+  <button class="mp-btn" onclick="mpNext()" title="下一首">&#9654;</button>
+  <div class="mp-info">
+    <div class="mp-title" id="mp-title">点烟花开启音乐</div>
+    <div class="mp-progress" id="mp-bar" onclick="mpSeek(event)">
+      <div class="mp-fill" id="mp-fill"></div>
+    </div>
+  </div>
+</div>
 
 <nav class="nav">
   <span class="nb">MIKUMIKUFANS</span>
@@ -314,32 +335,49 @@ function showGuest(id){
 document.getElementById('gmclose').onclick=function(){document.getElementById('gmodal').className='modal'};
 document.getElementById('gmodal').onclick=function(e){if(e.target===this)this.className='modal'};
 
-// === FIREWORK + CHEER SYSTEM ===
-var cheerCount=0, lastCheerTime=0, comboCount=0, bgmStarted=false;
+// === MUSIC PLAYER ===
+var mpSongs=[
+  {title:'Rolling Girl',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/songs/rolling-girl.mp3'},
+  {title:'ARiA',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/songs/aria.mp3'},
+  {title:'World is Mine',src:'https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/bgm.mp3'}
+];
+var mpIdx=0, mpPlaying=false, mpStarted=false;
+var mpAudio=document.getElementById('bgm');
+function mpLoad(i){
+  mpIdx=i;mpAudio.src=mpSongs[i].src;mpAudio.load();
+  document.getElementById('mp-title').textContent=mpSongs[i].title;
+}
+function mpToggle(){
+  if(mpAudio.paused){mpAudio.play();mpPlaying=true;mpStarted=true;
+    document.getElementById('mp-play').textContent='⏸';document.getElementById('mplayer').classList.add('on');
+  }else{mpAudio.pause();mpPlaying=false;
+    document.getElementById('mp-play').textContent='▶';
+  }
+}
+function mpNext(){mpLoad((mpIdx+1)%mpSongs.length);if(mpPlaying)mpAudio.play();}
+function mpPrev(){mpLoad((mpIdx-1+mpSongs.length)%mpSongs.length);if(mpPlaying)mpAudio.play();}
+function mpSeek(e){var pct=(e.clientX-e.target.getBoundingClientRect().left)/e.target.offsetWidth;mpAudio.currentTime=pct*(mpAudio.duration||0)}
+mpAudio.ontimeupdate=function(){var pct=mpAudio.duration?(mpAudio.currentTime/mpAudio.duration*100):0;document.getElementById('mp-fill').style.width=pct+'%'};
+mpAudio.onended=mpNext;
+mpLoad(0);
+// === FIREWORK + CHEER SYSTEM (combined with music auto-start) ===
+var cheerCount=0, lastCheerTime=0, comboCount=0, mpStarted=false;
 function updateCheerDisplay(){
   var el=document.getElementById('cheer-count');if(el)el.textContent=cheerCount;
 }
-function toggleBGM(){
-  var a=document.getElementById('bgm'),b=document.getElementById('music-btn');
-  if(a.paused){a.play().then(function(){b.style.color='var(--ml)';b.style.borderColor='var(--miku)'}).catch(function(){})}
-  else{a.pause();b.style.color='';b.style.borderColor=''}
-}
 document.getElementById('firework-btn').onclick=function(){
-  // Auto-start music on first firework
-  if(!bgmStarted){var a=document.getElementById('bgm');a.play().then(function(){bgmStarted=true;var b=document.getElementById('music-btn');b.style.color='var(--ml)';b.style.borderColor='var(--miku)'}).catch(function(){})}
+  // Auto-start music on first click
+  if(!mpStarted){mpToggle();mpStarted=true;}
   var now=Date.now();
-  // Combo: within 600ms = combo++
   if(now-lastCheerTime<600){comboCount++}else{comboCount=0}
   lastCheerTime=now;cheerCount++;updateCheerDisplay();
 
   var vw=window.innerWidth,vh=window.innerHeight;
-  // Bigger fireworks with combos
   var shellCount=5+Math.floor(comboCount/3);
   var particleBonus=Math.floor(comboCount/2)*10;
   if(shellCount>12)shellCount=12;
   if(particleBonus>80)particleBonus=80;
 
-  // Milestone celebration
   var milestone='';
   if(cheerCount===10)milestone='🎉 10连！Miku 很开心！';
   else if(cheerCount===50)milestone='🌟 50连！你是真爱粉！';
@@ -349,14 +387,11 @@ document.getElementById('firework-btn').onclick=function(){
   if(milestone){
     var mb=document.createElement('div');
     mb.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:200;font-size:28px;font-weight:900;color:#b3f5f0;text-shadow:0 0 20px #39c5bb,0 0 40px #6ee7de;pointer-events:none;animation:sbIn 0.3s ease-out, sbFloat 2s ease-in-out forwards;letter-spacing:4px;text-align:center;white-space:nowrap';
-    mb.textContent=milestone;
-    document.body.appendChild(mb);
+    mb.textContent=milestone;document.body.appendChild(mb);
     setTimeout(function(){mb.classList.add('out');setTimeout(function(){mb.remove()},300)},2000);
-    // Extra big sparkle for milestones
     for(var k=0;k<30;k++){var s=document.createElement('div');s.className='fwp';var cx=vw/2,cy=vh/2;var a=Math.random()*Math.PI*2,d=80+Math.random()*200,sz=3+Math.random()*8,c=['#39c5bb','#6ee7de','#b3f5f0','#e0fffc','#1a8a82'][Math.floor(Math.random()*5)];s.style.cssText='left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;background:'+c+';border-radius:50%;box-shadow:0 0 '+(sz*4)+'px '+c+';--dx:'+Math.cos(a)*d+'px;--dy:'+Math.sin(a)*d+'px;--ds:0;--dur:'+(1+Math.random())+'s';s.style.animationDelay=Math.random()*0.2+'s';document.body.appendChild(s);setTimeout(function(){s.remove()},2000)}
   }
 
-  // Fireworks
   for(var s=0;s<shellCount;s++){setTimeout(function(){
     var sx=vw*(0.15+Math.random()*0.7),sy=vh*(0.85+Math.random()*0.15),tx=vw*(0.2+Math.random()*0.6),ty=vh*(0.1+Math.random()*0.4);
     for(var t=0;t<8;t++){(function(tr){setTimeout(function(){var r=tr/8,p=document.createElement('div');p.className='fwp';p.style.cssText='left:'+(sx+(tx-sx)*r)+'px;top:'+(sy+(ty-sy)*r)+'px;width:2px;height:2px;background:#6ee7de;box-shadow:0 0 6px #6ee7de;--dx:0;--dy:0;--ds:0;--dur:0.5s;opacity:'+(0.3+r*0.7);document.body.appendChild(p);setTimeout(function(){p.remove()},500)},t*30)})(t)}
