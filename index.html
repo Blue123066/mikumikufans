@@ -78,8 +78,9 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .thm-btn{position:fixed;top:72px;right:10px;z-index:149;width:30px;height:30px;border-radius:50%;border:1px solid var(--b);background:var(--s);color:var(--miku);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all 0.3s}
 .thm-btn:hover{border-color:var(--miku);box-shadow:0 0 12px var(--mx)}.thm-btn:active{transform:scale(0.88);transition:transform 0.1s}
 .gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:24px}
-.gc{background:var(--s);border:1px solid var(--b);border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;overflow:hidden;position:relative}
-.gc:hover{border-color:var(--miku);box-shadow:0 0 28px var(--mx);transform:translateY(-4px)}.gc:active{transform:scale(0.9);transition:transform 0.15s}
+.gc{background:var(--s);border:1px solid var(--b);border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;overflow:hidden;position:relative;-webkit-tap-highlight-color:transparent}
+.gc:hover{border-color:var(--miku);box-shadow:0 0 28px var(--mx);transform:translateY(-4px)}
+.gc.pressed{transform:scale(0.88);border-color:var(--miku);box-shadow:0 0 20px var(--mx)}
 .gc .gci{font-size:48px;position:relative;z-index:1;margin-bottom:4px}
 .gc .gct{font-size:10px;letter-spacing:3px;color:var(--td);position:relative;z-index:1;text-align:center;line-height:1.4}
 .gf{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:24px;margin-bottom:20px}
@@ -293,6 +294,16 @@ document.getElementById('miku-img').onclick=function(e){
   for(var i=0;i<12;i++){var s=document.createElement('div');s.className='fwp';var cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;var a=Math.random()*Math.PI*2,d=30+Math.random()*80,sz=2+Math.random()*4,c=['#39c5bb','#6ee7de','#b3f5f0','#e0fffc'][Math.floor(Math.random()*4)];s.style.cssText='left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;background:'+c+';box-shadow:0 0 '+(sz*2)+'px '+c+';--dx:'+Math.cos(a)*d+'px;--dy:'+Math.sin(a)*d+'px;--ds:0;--dur:'+(0.5+Math.random()*0.5)+'s';s.style.animationDelay=Math.random()*0.1+'s';document.body.appendChild(s);setTimeout(function(){s.remove()},800)}
   setTimeout(function(){bubble.classList.add('out');setTimeout(function(){bubble.remove()},300)},2500);
 };
+// Gallery press feedback via JS (more reliable than CSS :active)
+document.querySelectorAll('.gc').forEach(function(card){
+  card.addEventListener('touchstart',function(){this.classList.add('pressed')},{passive:true});
+  card.addEventListener('touchend',function(){this.classList.remove('pressed')});
+  card.addEventListener('touchcancel',function(){this.classList.remove('pressed')});
+  card.addEventListener('mousedown',function(){this.classList.add('pressed')});
+  card.addEventListener('mouseup',function(){this.classList.remove('pressed')});
+  card.addEventListener('mouseleave',function(){this.classList.remove('pressed')});
+});
+
 var gd={popipa:{icon:'🎸',name:"Poppin'Party",sub:'ポッピン パーティー',desc:'五位高中女生组成的青春朋克乐队，代表青春、友情与追逐梦想的力量。',songs:'「ときめきエクスペリエンス」「キラキラだとか夢だとか」「STAR BEAT!」',m:[{r:'🎤 主唱/吉他',n:'户山香澄',v:'爱美'},{r:'🎸 主音吉他',n:'花园多惠',v:'大塚纱英'},{r:'🎸 贝斯',n:'牛込里美',v:'西本里美'},{r:'🥁 鼓手',n:'山吹沙绫',v:'大桥彩香'},{r:'🎹 键盘',n:'市谷有咲',v:'伊藤彩沙'}]},roselia:{icon:'🌹',name:'Roselia',sub:'ロゼリア',desc:'以本格派为信念的哥特摇滚乐队，追求极致完美的音乐。',songs:'「BLACK SHOUT」「Determination Symphony」「FIRE BIRD」「R」',m:[{r:'🎤 主唱',n:'凑友希那',v:'相羽爱奈'},{r:'🎸 吉他',n:'冰川纱夜',v:'工藤晴香'},{r:'🎸 贝斯',n:'今井莉莎',v:'中岛由贵'},{r:'🥁 鼓手',n:'宇田川亚子',v:'樱川惠'},{r:'🎹 键盘',n:'白金燐子',v:'志崎桦音'}]},ras:{icon:'⚡',name:'RAISE A SUILEN',sub:'レイズ ア スイレン',desc:'代表最强的电子摇滚乐队，以压倒性能量震撼全场。',songs:'「R·I·O·T」「UNSTOPPABLE」「DRIVE US CRAZY」',m:[{r:'🎤 主唱/贝斯',n:'LAYER',v:'Raychell'},{r:'🎸 吉他',n:'LOCK',v:'小原莉子'},{r:'🥁 鼓手',n:'MASKING',v:'夏芽'},{r:'🎹 键盘',n:'PAREO',v:'仓知玲凤'},{r:'🎧 DJ/制作',n:'CHU²',v:'纺木吏佐'}]}};
 function showGuest(id){
   var d=gd[id];if(!d)return;
