@@ -11,6 +11,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+SC:wght@400;700;900&display=swap');
 :root{--miku:#39c5bb;--ml:#6ee7de;--md:#1a8a82;--mg:rgba(57,197,187,0.5);--mx:rgba(57,197,187,0.12);--s:#0e1f1c;--s2:#132a26;--b:rgba(57,197,187,0.15);--w:#f0faf9;--t:#d0ece8;--td:rgba(208,236,232,0.5);--bg:#081210}
+html{scroll-behavior:smooth}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);font-family:'Noto Sans SC',-apple-system,sans-serif;color:var(--t);overflow-x:hidden;min-height:100vh}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(57,197,187,0.08) 0%,transparent 50%),radial-gradient(ellipse at 30% 70%,rgba(26,138,130,0.05) 0%,transparent 50%);pointer-events:none;z-index:0}
@@ -114,12 +115,16 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .mx{position:absolute;top:14px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--b);background:var(--s2);color:var(--td);font-size:15px;cursor:pointer;transition:all 0.2s}
 .mx:hover{color:var(--miku);border-color:var(--miku)}
 /* Speech bubble */
-.speech-bubble{position:fixed;z-index:10;background:var(--s2);border:1px solid var(--miku);border-radius:16px;padding:10px 16px;font-size:13px;color:var(--w);box-shadow:0 0 20px var(--mx);animation:sbIn 0.3s ease-out, sbFloat 2.5s ease-in-out forwards;pointer-events:none;max-width:200px;text-align:center;line-height:1.5;white-space:nowrap}
+.speech-bubble{position:fixed;z-index:10;background:var(--s2);border:1px solid var(--miku);border-radius:16px;padding:10px 16px;font-size:13px;color:var(--w);box-shadow:0 0 20px var(--mx);animation:sbIn 0.3s ease-out, sbFloat 2.5s ease-in-out forwards;pointer-events:none;max-width:200px;text-align:center;line-height:1.5;white-space:nowrap;will-change:transform,opacity}
 .speech-bubble::after{content:'';position:absolute;bottom:-8px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid var(--miku)}
 .speech-bubble.tail-left{border-radius:16px 16px 16px 4px}
 .speech-bubble.tail-left::after{left:14px;right:auto}
 .speech-bubble.tail-right{border-radius:16px 16px 4px 16px}
 .speech-bubble.tail-right::after{left:auto;right:14px}
+.speech-bubble.tail-top{border-radius:4px 16px 16px 16px}
+.speech-bubble.tail-top::after{bottom:auto;top:-8px;left:50%;transform:translateX(-50%);border-top:none;border-bottom:8px solid var(--miku)}
+.speech-bubble.tail-topleft{border-radius:4px 16px 16px 16px}
+.speech-bubble.tail-topleft::after{bottom:auto;top:-8px;left:20px;border-top:none;border-bottom:8px solid var(--miku)}
 @keyframes sbIn{from{opacity:0;transform:translateY(8px) scale(0.85)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes sbFloat{0%{transform:translateY(0)}100%{transform:translateY(-18px)}}
 @keyframes sbOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-10px)}}
@@ -272,24 +277,34 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 var mikuQuotes=['世界で一番お姫様！👑','キラキラドキドキ！✨','ミクミクにしてあげる♪','はじめまして、初音ミクです！','一緒に歌おう！🎤','39！Thank you！💚','あなたのハートに届けたい！','今日も一日頑張ろう！','私の歌声、届いてる？','ずっと一緒だよ！'];
 document.getElementById('miku-img').onclick=function(e){
   this.classList.remove('bop');void this.offsetWidth;this.classList.add('bop');
-  // Remove old bubbles
   document.querySelectorAll('.speech-bubble').forEach(function(b){b.classList.add('out');setTimeout(function(){b.remove()},300)});
-  // New bubble
   var bubble=document.createElement('div');bubble.className='speech-bubble';
   bubble.textContent=mikuQuotes[Math.floor(Math.random()*mikuQuotes.length)];
   var rect=this.getBoundingClientRect();
-  // Random side: left or right of Miku
-  var toLeft=Math.random()>0.5;
-  if(toLeft){
+  // 5 random positions: top-center, top-left, top-right, left, right
+  var pos=Math.floor(Math.random()*5);
+  if(pos===0){ // top-center
+    bubble.classList.add('tail-top');
+    bubble.style.left=(rect.left+rect.width/2-90+Math.random()*30)+'px';
+    bubble.style.top=Math.max(60,rect.top-50-Math.random()*15)+'px';
+  }else if(pos===1){ // top-left
+    bubble.classList.add('tail-topleft');
+    bubble.style.left=Math.max(8,rect.left-100-Math.random()*30)+'px';
+    bubble.style.top=Math.max(60,rect.top-45-Math.random()*15)+'px';
+  }else if(pos===2){ // top-right
+    bubble.classList.add('tail-top');
+    bubble.style.left=Math.min(window.innerWidth-210,rect.right-80+Math.random()*30)+'px';
+    bubble.style.top=Math.max(60,rect.top-45-Math.random()*15)+'px';
+  }else if(pos===3){ // left
     bubble.classList.add('tail-right');
     bubble.style.left=Math.max(8,rect.left-140-Math.random()*40)+'px';
-  }else{
+    bubble.style.top=(rect.top+rect.height*0.15+Math.random()*25)+'px';
+  }else{ // right
     bubble.classList.add('tail-left');
     bubble.style.left=Math.min(window.innerWidth-210,rect.right+10+Math.random()*40)+'px';
+    bubble.style.top=(rect.top+rect.height*0.15+Math.random()*25)+'px';
   }
-  bubble.style.top=(rect.top+rect.height*0.15+Math.random()*20)+'px';
   document.body.appendChild(bubble);
-  // Miku-colored sparkle burst
   for(var i=0;i<12;i++){var s=document.createElement('div');s.className='fwp';var cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;var angle=Math.random()*Math.PI*2,dist=30+Math.random()*80,sz=2+Math.random()*4,c=['#39c5bb','#6ee7de','#b3f5f0','#e0fffc'][Math.floor(Math.random()*4)];s.style.cssText='left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;background:'+c+';box-shadow:0 0 '+(sz*2)+'px '+c+';--dx:'+Math.cos(angle)*dist+'px;--dy:'+Math.sin(angle)*dist+'px;--ds:0;--dur:'+(0.5+Math.random()*0.5)+'s';s.style.animationDelay=Math.random()*0.1+'s';document.body.appendChild(s);setTimeout(function(){s.remove()},800)}
   setTimeout(function(){bubble.classList.add('out');setTimeout(function(){bubble.remove()},300)},2500);
 };
