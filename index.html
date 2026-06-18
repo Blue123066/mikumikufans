@@ -12,13 +12,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+SC:wght@400;700;900&display=swap');
 :root{--miku:#39c5bb;--ml:#6ee7de;--md:#1a8a82;--mg:rgba(57,197,187,0.5);--mx:rgba(57,197,187,0.12);--s:#0e1f1c;--s2:#132a26;--b:rgba(57,197,187,0.15);--w:#f0faf9;--t:#d0ece8;--td:rgba(208,236,232,0.5);--bg:#081210}
 .light{--s:#f5fdfc;--s2:#e8faf8;--b:rgba(57,197,187,0.2);--w:#0a2a26;--t:#1a3a36;--td:rgba(26,58,54,0.5);--bg:#e8f7f5;--mx:rgba(57,197,187,0.08)}
-/* Rimuru blue theme */
-.rimuru-mode{--miku:#5b9dd9;--ml:#8fc5f5;--md:#3a7bc8;--mg:rgba(91,157,217,0.5);--mx:rgba(91,157,217,0.12);--s:#0e1a28;--s2:#132236;--b:rgba(91,157,217,0.15);--w:#f0f5fa;--t:#d0dce8;--td:rgba(208,220,232,0.5);--bg:#081018}
-.light.rimuru-mode{--s:#f5f8fc;--s2:#e8eff8;--b:rgba(91,157,217,0.2);--w:#0a1a2a;--t:#1a2a3a;--td:rgba(26,42,58,0.5);--bg:#e8f0f7;--mx:rgba(91,157,217,0.08)}
-.rimuru-mode .nav{background:rgba(8,16,24,0.92)}
-.light.rimuru-mode .nav{background:rgba(232,240,247,0.92)}
-.rimuru-mode .mplayer{background:rgba(8,16,24,0.95)}
-.light.rimuru-mode .mplayer{background:rgba(232,240,247,0.95)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);font-family:'Noto Sans SC',-apple-system,sans-serif;color:var(--t);overflow-x:hidden;min-height:100vh;transition:background 0.5s,color 0.5s}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(57,197,187,0.08) 0%,transparent 50%),radial-gradient(ellipse at 30% 70%,rgba(26,138,130,0.05) 0%,transparent 50%);pointer-events:none;z-index:0}
@@ -145,7 +138,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <a href="#tickets">购票</a>
   <a href="#guestbook">留言</a>
   <a href="#about">关于</a>
-  <a href="#" onclick="toggleMode()" style="color:var(--miku);font-weight:900" id="mode-sw">🔄 Rimuru</a>
 </nav>
 
 <div class="ptl"><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div></div>
@@ -286,18 +278,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 <script>
 function toggleTheme(){var b=document.body;if(b.className==='dark'){b.className='light';document.querySelector('.thm-btn').textContent='🌙'}else{b.className='dark';document.querySelector('.thm-btn').textContent='☀'}}
-function toggleMode(){
-  var b=document.body,s=document.getElementById('mode-sw'),bn=document.querySelector('.bn'),bs=document.querySelector('.bs');
-  if(b.classList.contains('rimuru-mode')){
-    b.classList.remove('rimuru-mode');s.textContent='🔄 Rimuru';s.style.color='';
-    bn.textContent='MIKUMIKUFANS';bs.textContent='初音ミク LIVE';
-    document.title='MIKUMIKUFANS · 初音ミク LIVE';
-  }else{
-    b.classList.add('rimuru-mode');s.textContent='🔄 Miku';s.style.color='var(--miku)';
-    bn.textContent='RIMURU FANS';bs.textContent='利姆露应援站';
-    document.title='RIMURU FANS · 利姆露应援站';
-  }
-}
 var dmPresets=['ミク大好き！💚','世界で一番お姫様！👑','39！Thank you！','キラキラドキドキ✨','Hery Band 最高！','今日は最高の夜！🎉'];
 function sendDanmaku(){var t=document.getElementById('dm-text').value.trim();if(!t)t=dmPresets[Math.floor(Math.random()*dmPresets.length)];spawnDanmaku(t);document.getElementById('dm-text').value=''}
 function spawnDanmaku(t){var d=document.createElement('div');d.className='danmaku';d.textContent=t;d.style.top=(10+Math.random()*60)+'%';d.style.animationDuration=(4+Math.random()*6)+'s';var cs=['#39c5bb','#6ee7de','#b3f5f0','#e0fffc','#1a8a82','#fff'];d.style.color=cs[Math.floor(Math.random()*cs.length)];document.getElementById('danmaku-layer').appendChild(d);setTimeout(function(){d.remove()},10000)}
