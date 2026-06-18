@@ -262,9 +262,12 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <div class="content-page">
     <div class="st">关于我们</div><div class="ss">ABOUT</div>
     <div style="text-align:center;font-size:80px;margin-bottom:28px;filter:drop-shadow(0 0 20px var(--mg))">🎤</div>
-    <div class="dc" style="text-align:center"><div class="dcb"><strong style="color:var(--miku)">MIKUMIKUFANS</strong> 是初音ミク非官方应援团体<br><br><strong style="color:var(--miku)">ミクの歌声は、世界をつなぐ ✦</strong></div></div>
+    <div class="dc"><div class="dct">📖 关于本站</div><div class="dcb">MIKUMIKUFANS 是一个面向<strong>初音ミク</strong>中文粉丝的非官方应援站点。我们致力于为国内 Miku 爱好者提供一个信息聚合、互动交流与资源共享的平台。<br><br>本站由粉丝自发创建与维护，与 Crypton Future Media 及任何商业机构无直接关联。</div></div>
+    <div class="dc"><div class="dct">🎯 我们的愿景</div><div class="dcb">· 推广初音ミク与 Vocaloid 文化在中国的传播<br>· 为粉丝提供活动信息与应援渠道<br>· 打造温馨、活跃的 Miku 粉丝社区</div></div>
+    <div class="dc"><div class="dct">📧 联系方式</div><div class="dcb">如有任何建议、合作意向或问题反馈，欢迎通过以下方式联系我们：<br><br>📮 本站留言板（推荐）<br>🐙 GitHub：<strong>Blue123066/mikumikufans</strong></div></div>
+    <div class="dc"><div class="dct">💚 特别鸣谢</div><div class="dcb">感谢每一位访问本站的 Miku 粉丝。感谢所有 Vocaloid P 主、画师、创作者们为 Miku 注入灵魂。<br><br><strong style="color:var(--miku)">ミクの歌声は、世界をつなぐ ✦</strong></div></div>
   </div>
-  <div class="footer">© 2026 MIKUMIKUFANS</div>
+  <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
 </div>
 
 <audio id="bgm" loop preload="auto"></audio>
@@ -348,7 +351,9 @@ document.getElementById('firework-btn').onclick=function(){
 var GB_API='https://jsonblob.com/api/jsonBlob/019edb87-a8c2-7667-9946-75c731d0bc77',msgs=[];
 function loadMsgs(cb){fetch(GB_API).then(function(r){return r.json()}).then(function(d){msgs=d;cb()}).catch(function(){msgs=[];cb()})}
 function saveMsgs(){fetch(GB_API,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(msgs)}).catch(function(){})}
-function renderMsgs(){var el=document.getElementById('gbl');if(!el)return;if(!msgs.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--td)">还没有留言 ✦</div>';return}el.innerHTML=msgs.map(function(m){return'<div style="background:var(--s);border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:8px"><div style="font-size:13px;font-weight:700;color:var(--miku);margin-bottom:4px">'+eH(m.name)+'</div><div style="font-size:13px;color:var(--td);line-height:1.6">'+eH(m.msg)+'</div><div style="font-size:10px;color:rgba(208,236,232,0.3);margin-top:6px">'+m.time+'</div></div>'}).join('')}
+function renderMsgs(){var el=document.getElementById('gbl');if(!el)return;if(!msgs.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--td)">还没有留言 ✦</div>';return}el.innerHTML=msgs.map(function(m,i){return'<div style="background:var(--s);border:1px solid var(--b);border-radius:10px;padding:16px 20px;margin-bottom:8px;position:relative"><div style="font-size:13px;font-weight:700;color:var(--miku);margin-bottom:4px">'+eH(m.name)+'</div><div class="gb-msg-text" style="font-size:13px;color:var(--td);line-height:1.6">'+eH(m.msg)+'</div><div style="font-size:10px;color:rgba(208,236,232,0.3);margin-top:6px">'+m.time+'</div><div style="position:absolute;top:10px;right:10px;display:flex;gap:6px"><button onclick="editMsg('+i+')" style="font-size:10px;background:none;border:none;color:var(--td);cursor:pointer">✏</button><button onclick="delMsg('+i+')" style="font-size:10px;background:none;border:none;color:var(--td);cursor:pointer">✕</button></div></div>'}).join('')}
+function delMsg(i){if(!confirm('确定删除这条留言？'))return;msgs.splice(i,1);saveMsgs();renderMsgs()}
+function editMsg(i){var n=prompt('修改内容',msgs[i].msg);if(n!==null&&n.trim()){msgs[i].msg=n.trim();msgs[i].time=msgs[i].time+' (已编辑)';saveMsgs();renderMsgs()}}
 function eH(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 document.getElementById('gbb').onclick=function(){var n=document.getElementById('gbn').value.trim(),t=document.getElementById('gbt').value.trim();if(!n||!t)return alert('请填写昵称和留言');msgs.unshift({name:n,msg:t,time:new Date().toLocaleString('zh-CN')});if(msgs.length>100)msgs.length=100;saveMsgs();document.getElementById('gbn').value='';document.getElementById('gbt').value='';renderMsgs()};
 loadMsgs(renderMsgs);
