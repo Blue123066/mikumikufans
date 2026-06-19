@@ -20,6 +20,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .nav::-webkit-scrollbar{display:none}
 .nav a{display:block;padding:14px 14px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--td);text-decoration:none;white-space:nowrap;transition:all 0.25s;flex-shrink:0}
 .nav a:hover{color:var(--w)}
+.nav-indicator{position:absolute;bottom:0;height:2px;background:var(--miku);border-radius:1px;transition:left 0.3s cubic-bezier(0.4,0,0.2,1),width 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 0 8px var(--miku);pointer-events:none}
 .nav .nb{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:4px;color:var(--miku);padding:14px 16px;text-shadow:0 0 8px var(--mg);text-decoration:none;white-space:nowrap;flex-shrink:0}
 .page{display:none;padding-top:60px;min-height:100vh}
 .page:target,.page.home{display:block;animation:pgIn 0.35s ease-out}
@@ -187,6 +188,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <a href="#submit">投稿</a>
   <a href="#" onclick="location.href='miku-game.html';return false">小游戏</a>
   <a href="#about">关于</a>
+  <div class="nav-indicator"></div>
 </nav>
 
 <div class="ptl"><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div></div>
@@ -598,6 +600,24 @@ var fortunes=[
 var fortuneUsed=-1;
 function flipFortune(){var card=document.getElementById('fortune-card');if(card.classList.contains('flipped'))return;var idx;do{idx=Math.floor(Math.random()*fortunes.length)}while(idx===fortuneUsed&&fortunes.length>1);fortuneUsed=idx;var f=fortunes[idx];document.getElementById('fortune-result').textContent=f.r;document.getElementById('fortune-desc').textContent=f.d;document.getElementById('fortune-lyric').textContent=f.l;card.classList.add('flipped')}
 function resetFortune(){var card=document.getElementById('fortune-card');card.classList.remove('flipped');fortuneUsed=-1}
+// --- Nav Indicator ---
+(function(){
+  var indicator=document.querySelector('.nav-indicator');
+  var nav=document.querySelector('.nav');
+  function updateIndicator(){
+    var hash=location.hash||'#home';
+    var link=nav.querySelector('a[href="'+hash+'"]');
+    if(!link)link=nav.querySelector('a[href="#home"]');
+    if(!link||!indicator)return;
+    var lr=link.getBoundingClientRect();
+    var nr=nav.getBoundingClientRect();
+    indicator.style.left=(lr.left-nr.left)+'px';
+    indicator.style.width=lr.width+'px';
+  }
+  window.addEventListener('hashchange',updateIndicator);
+  window.addEventListener('load',updateIndicator);
+  updateIndicator();
+})();
 </script>
 </body>
 </html>
