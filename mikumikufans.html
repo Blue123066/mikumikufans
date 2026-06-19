@@ -38,8 +38,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .hero{position:relative;height:480px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .hero .glow{position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(57,197,187,0.15) 0%,transparent 70%);animation:gb 3s ease-in-out infinite alternate}
 @keyframes gb{from{transform:scale(0.9);opacity:0.5}to{transform:scale(1.15);opacity:0.9}}
-.hero picture{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;height:95%;max-width:78%}
-.hero img{height:100%;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 0 30px rgba(57,197,187,0.5));animation:mf 5s ease-in-out infinite;cursor:pointer;transition:transform 0.3s,filter 0.3s}
+.hero img{position:relative;z-index:2;max-height:95%;max-width:78%;object-fit:contain;filter:drop-shadow(0 0 30px rgba(57,197,187,0.5));animation:mf 5s ease-in-out infinite;cursor:pointer;transition:transform 0.3s,filter 0.3s}
 .hero img:hover{transform:scale(1.1);filter:drop-shadow(0 0 50px rgba(57,197,187,0.8)) drop-shadow(0 0 80px rgba(57,197,187,0.3))}
 .hero img.bop{animation:mb 0.4s ease-out}
 @keyframes mb{0%{transform:scale(1)rotate(0)}25%{transform:scale(1.15)rotate(-3deg)}50%{transform:scale(0.95)rotate(2deg)}75%{transform:scale(1.08)rotate(-1deg)}100%{transform:scale(1.04)rotate(0)}}
@@ -170,7 +169,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 @media(max-width:740px){
   .nav .nb{font-size:13px;letter-spacing:3px;padding:13px 12px}.nav a{padding:13px 12px;letter-spacing:1.5px}
   .page{padding-top:54px}.poster{width:100%;margin:8px auto 24px;border-left:0;border-right:0;border-radius:0}.hero{height:clamp(240px,44vh,300px)}
-  .hero picture{height:92%;max-width:88%}.info{padding:0 20px 26px;margin-top:-10px}.bn{font-size:clamp(38px,12vw,48px);letter-spacing:4px;line-height:.9}
+  .hero img{max-width:88%;max-height:92%}.info{padding:0 20px 26px;margin-top:-10px}.bn{font-size:clamp(38px,12vw,48px);letter-spacing:4px;line-height:.9}
   .bs{font-size:15px;letter-spacing:7px}.tl{letter-spacing:6px;margin-bottom:16px}.ig{border-radius:8px}.ic{padding:18px 10px}.ic .l{letter-spacing:4px}.ic .v{font-size:22px}.ic .v .sub{font-size:12px}
   .gr{gap:10px 18px;padding:12px 4px}.gr .gl{width:100%;text-align:center}.gr .gn{font-size:12px;letter-spacing:1px}
   .pr{align-items:center}.px{gap:20px}.pi .pa{font-size:34px}.seal{width:72px;height:72px;font-size:9px}
@@ -211,10 +210,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <div class="poster">
     <div class="hero">
       <div class="glow"></div>
-      <picture>
-        <source srcset="miku-hero.webp?v=20260619-2" type="image/webp">
-        <img src="miku-hero.jpg?v=20260619-2" alt="Hatsune Miku" id="miku-img" loading="eager" decoding="async" fetchpriority="high" onerror="this.onerror=null;var s=this.previousElementSibling;if(s)s.remove();this.src='miku-hero.jpg?v=20260619-2';">
-      </picture>
+      <img src="miku-hero.jpg?v=20260619-3" alt="Hatsune Miku" id="miku-img" loading="eager" decoding="async" fetchpriority="high">
       <div class="fade"></div>
     </div>
     <div class="info">
