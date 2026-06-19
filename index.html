@@ -257,10 +257,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       </div>
     </div>
     <div class="dc">
-      <div class="dct">🧅 Character Item</div>
+      <div class="dct">ネギ Character Item</div>
       <div class="dcb">
         官方角色道具：<strong>葱 (Negi / ネギ)</strong><br>
-        粉丝们常用的应援道具 🧅💚
+        粉丝们常用的应援道具 ネギ💚
       </div>
     </div>
     <div class="dc">
@@ -412,8 +412,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <div class="content-page">
     <div class="st">购票通道</div><div class="ss">TICKETS</div>
     <div class="to">
-      <div class="tc rec" onclick="buyTicket('早鸟票','🧅×2')"><div class="badge">推荐</div><div class="tcn">早鸟票</div><div class="tcp">¥60</div><div style="font-size:11px;color:var(--td)">限量 · 售完即止</div></div>
-      <div class="tc" onclick="buyTicket('现场票','🪄 一根葱')"><div class="tcn">现场票</div><div class="tcp">¥80</div><div style="font-size:11px;color:var(--td)">现场购买</div></div>
+      <div class="tc rec" onclick="buyTicket('早鸟票','ネギ×2')"><div class="badge">推荐</div><div class="tcn">早鸟票</div><div class="tcp">¥60</div><div style="font-size:11px;color:var(--td)">限量 · 售完即止</div></div>
+      <div class="tc" onclick="buyTicket('现场票','ネギ 一根')"><div class="tcn">现场票</div><div class="tcp">¥80</div><div style="font-size:11px;color:var(--td)">现场购买</div></div>
     </div>
     <div class="dc"><div class="dct">💡 购票须知</div><div class="dcb">· 早鸟每人限购 <strong>2</strong> 张 · 不支持退换</div></div>
   </div>
@@ -602,12 +602,26 @@ function saveEdit(i){var v=document.getElementById('ebox').value.trim();if(v){ms
 function eH(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 document.getElementById('gbb').onclick=function(){var n=document.getElementById('gbn').value.trim(),t=document.getElementById('gbt').value.trim();if(!n||!t)return alert('请填写昵称和留言');msgs.unshift({name:n,msg:t,time:new Date().toLocaleString('zh-CN')});if(msgs.length>100)msgs.length=100;saveMsgs();document.getElementById('gbn').value='';document.getElementById('gbt').value='';renderMsgs()};
 loadMsgs(renderMsgs);
-function share(){var u='https://mymikufans.top';if(navigator.share)navigator.share({title:'MIKUMIKUFANS',text:'6月19日 周五 18:00 · 青岛',url:u}).catch(function(){});else{navigator.clipboard.writeText(u).then(function(){alert('链接已复制！')}).catch(function(){})}}
+function share(){
+  var ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center';
+  ov.onclick=function(e){if(e.target===ov)ov.remove()};
+  var bx=document.createElement('div');bx.style.cssText='background:var(--s);border:1px solid var(--miku);border-radius:16px;max-width:380px;width:90%;padding:32px 28px;text-align:center;box-shadow:0 0 60px rgba(57,197,187,0.2);animation:pgIn 0.3s ease-out';
+  bx.innerHTML='<div style="font-size:40px;margin-bottom:8px">📤</div><div style="font-family:Bebas Neue,sans-serif;font-size:24px;letter-spacing:4px;color:var(--miku);margin-bottom:4px">SHARE</div><div style="font-size:12px;color:var(--td);letter-spacing:3px;margin-bottom:20px">分享给朋友</div><div style="background:var(--s2);border-radius:10px;padding:16px;margin-bottom:16px;word-break:break-all"><code style="font-size:12px;color:var(--t)">https://mymikufans.top</code></div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button onclick="copyLink()" style="padding:10px 20px;background:var(--miku);color:var(--bg);border:none;border-radius:20px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:2px;font-size:12px">📋 复制链接</button><button onclick="shareVia(\'weibo\')" style="padding:10px 20px;background:var(--s2);border:1px solid var(--b);border-radius:20px;color:var(--t);cursor:pointer;font-family:inherit;font-size:12px">🔴 微博</button><button onclick="shareVia(\'qq\')" style="padding:10px 20px;background:var(--s2);border:1px solid var(--b);border-radius:20px;color:var(--t);cursor:pointer;font-family:inherit;font-size:12px">🐧 QQ</button></div><button onclick="this.parentElement.parentElement.remove()" style="margin-top:12px;background:none;border:none;color:var(--td);cursor:pointer;font-family:inherit;font-size:12px">✕ 关闭</button>';
+  ov.appendChild(bx);document.body.appendChild(ov);
+}
+function copyLink(){navigator.clipboard.writeText('https://mymikufans.top').then(function(){
+  var el=document.querySelector('#share-modal code');
+  if(el){el.textContent='✅ 链接已复制！';setTimeout(function(){el.textContent='https://mymikufans.top'},2000)}
+}).catch(function(){})}
+function shareVia(p){var u='https://mymikufans.top',t='MIKUMIKUFANS · 初音ミク LIVE · 6月19日 青岛';
+  if(p==='weibo')window.open('https://service.weibo.com/share/share.php?url='+encodeURIComponent(u)+'&title='+encodeURIComponent(t),'_blank');
+  if(p==='qq')window.open('https://connect.qq.com/widget/shareqq/index.html?url='+encodeURIComponent(u)+'&title='+encodeURIComponent(t),'_blank');
+}
 function buyTicket(name,price){
   var msgs=[
     '🎫 '+name+' 购票成功！',
-    '支付方式：'+price,
-    '🧅 已从你的葱库存中扣除',
+    支付方式：'+price,
+    'ネギ 已从你的葱库存中扣除',
     '',
     '📅 2026年6月19日（周五）',
     '📍 青岛 · 场地待定',
