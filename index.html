@@ -300,10 +300,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <div class="dc">
       <div class="dcb" style="line-height:2">
         初音ミク是由 <strong>Crypton Future Media</strong> 开发的歌声合成软件角色形象。<br><br>
-        自2007年诞生以来，她已从一款Vocaloid软件成长为 <strong>世界级的虚拟歌姬</strong>。<br><br>
-        她不仅在日本拥有超高人气，在中国乃至全球也拥有大量粉丝。<br><br>
-        「ミク」意为"未来"，她代表了音乐与科技融合的无限可能。<br><br>
-        <strong>39!</strong> — 在日语中读作"サンキュー"，代表粉丝对Miku最深情的感谢 ✦
+        自2007年8月31日发售以来，她已从一款Vocaloid软件成长为 <strong>世界级的虚拟歌姬</strong>。<br>
+        她是 Crypton 社「Character Vocal Series」的第一作，产品编号 CV01。<br><br>
+        名字的含义：「初」= 第一个，「音」= 声音，「ミク」= 未来 —— <strong>「最初的声音，来自未来」</strong>。<br><br>
+        2010年3月9日，初音ミク在东京举办了世界上第一场全息投影演唱会 <strong>「ミクの日感謝祭 39's Giving Day」</strong>，<br>标志着她从软件走向虚拟偶像的历史性时刻。<br><br>
+        此后她在全球多个城市举办演唱会，包括洛杉矶、纽约、台北、香港、上海、吉隆坡等。<br>2014年，她甚至作为 <strong>Lady Gaga</strong> 全球巡演的开场嘉宾登场。<br><br>
+        截至目前，在 NicoNico 动画和 YouTube 上，已有超过 <strong>10万首</strong> 使用她声库创作的歌曲。<br>代表游戏系列包括《初音ミク -Project DIVA-》和《Project Sekai: Colorful Stage!》。<br><br>
+        她的声库提供者（中の人）是声优 <strong>藤田咲</strong>，官方形象由插画家 <strong>KEI</strong> 设计。<br><br>
+        <strong>39!</strong> — 在日语中读作"サンキュー"（Thank you），这是粉丝对 Miku 最深情的告白 ✦
       </div>
     </div>
     <div class="st" style="font-size:32px;letter-spacing:4px;margin-top:32px">即将到来的活动</div><div class="ss">UPCOMING EVENTS</div>
@@ -408,8 +412,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <div class="content-page">
     <div class="st">购票通道</div><div class="ss">TICKETS</div>
     <div class="to">
-      <div class="tc rec" onclick="alert('早鸟票 ¥60')"><div class="badge">推荐</div><div class="tcn">早鸟票</div><div class="tcp">¥60</div><div style="font-size:11px;color:var(--td)">限量 · 售完即止</div></div>
-      <div class="tc" onclick="alert('现场票 ¥80')"><div class="tcn">现场票</div><div class="tcp">¥80</div><div style="font-size:11px;color:var(--td)">现场购买</div></div>
+      <div class="tc rec" onclick="buyTicket('早鸟票','🧅×2')"><div class="badge">推荐</div><div class="tcn">早鸟票</div><div class="tcp">¥60</div><div style="font-size:11px;color:var(--td)">限量 · 售完即止</div></div>
+      <div class="tc" onclick="buyTicket('现场票','🪄 一根葱')"><div class="tcn">现场票</div><div class="tcp">¥80</div><div style="font-size:11px;color:var(--td)">现场购买</div></div>
     </div>
     <div class="dc"><div class="dct">💡 购票须知</div><div class="dcb">· 早鸟每人限购 <strong>2</strong> 张 · 不支持退换</div></div>
   </div>
@@ -599,6 +603,25 @@ function eH(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,
 document.getElementById('gbb').onclick=function(){var n=document.getElementById('gbn').value.trim(),t=document.getElementById('gbt').value.trim();if(!n||!t)return alert('请填写昵称和留言');msgs.unshift({name:n,msg:t,time:new Date().toLocaleString('zh-CN')});if(msgs.length>100)msgs.length=100;saveMsgs();document.getElementById('gbn').value='';document.getElementById('gbt').value='';renderMsgs()};
 loadMsgs(renderMsgs);
 function share(){var u='https://mymikufans.top';if(navigator.share)navigator.share({title:'MIKUMIKUFANS',text:'6月19日 周五 18:00 · 青岛',url:u}).catch(function(){});else{navigator.clipboard.writeText(u).then(function(){alert('链接已复制！')}).catch(function(){})}}
+function buyTicket(name,price){
+  var msgs=[
+    '🎫 '+name+' 购票成功！',
+    '支付方式：'+price,
+    '🧅 已从你的葱库存中扣除',
+    '',
+    '📅 2026年6月19日（周五）',
+    '📍 青岛 · 场地待定',
+    '⏰ 入场 17:30 · 开演 18:00',
+    '',
+    '💚 ミク在演出现场等你！',
+    '※ 本票为整活性质，无需真实付款 ※'
+  ];
+  var ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center';
+  ov.onclick=function(e){if(e.target===ov)ov.remove()};
+  var bx=document.createElement('div');bx.style.cssText='background:var(--s);border:1px solid var(--miku);border-radius:16px;max-width:400px;width:90%;padding:32px 28px;text-align:center;box-shadow:0 0 60px rgba(57,197,187,0.2);animation:pgIn 0.3s ease-out';
+  bx.innerHTML='<div style="font-size:48px;margin-bottom:12px">🧅</div><div style="font-size:14px;color:var(--td);line-height:2;white-space:pre-line">'+msgs.join('\n')+'</div><button onclick="this.parentElement.parentElement.remove()" style="margin-top:16px;padding:8px 24px;background:var(--miku);color:var(--bg);border:none;border-radius:20px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:2px;font-size:13px">39！确认</button>';
+  ov.appendChild(bx);document.body.appendChild(ov);
+}
 (function cd(){var t=new Date('2026-06-19T18:00:00+08:00').getTime(),n=Date.now(),d=Math.max(0,Math.floor((t-n)/864e5)),h=Math.max(0,Math.floor((t-n)/36e5)%24),m=Math.max(0,Math.floor((t-n)/6e4)%60),s=Math.max(0,Math.floor((t-n)/1e3)%60);var el=function(id){return document.getElementById(id)};if(el('cd-d'))el('cd-d').textContent=d;if(el('cd-h'))el('cd-h').textContent=String(h).padStart(2,'0');if(el('cd-m'))el('cd-m').textContent=String(m).padStart(2,'0');if(el('cd-s'))el('cd-s').textContent=String(s).padStart(2,'0');if(d===0&&h===0&&m===0&&s===0&&el('cd-d')&&!document.getElementById('birthday-banner')){var p=el('cd-d').parentElement.parentElement;if(p){var bh='<div id=\"birthday-banner\" style=\"text-align:center;animation:pgIn 0.5s ease-out\"><div style=\"font-family:Bebas Neue,sans-serif;font-size:28px;letter-spacing:4px;background:linear-gradient(135deg,var(--ml),var(--miku),var(--md),var(--miku),var(--ml));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:tf 2.5s linear infinite;margin-bottom:12px\">🎂 Miku 祝你生日快乐！🎂</div><div style=\"font-size:14px;color:var(--td);letter-spacing:3px;margin-bottom:20px\">世界で一番お姫様、今日はあなたの誕生日！</div><div style=\"background:var(--s);border:2px solid #39c5bb;border-radius:12px;padding:24px 20px;margin-bottom:12px;box-shadow:0 0 20px rgba(57,197,187,0.2)\"><div style=\"font-size:16px;font-weight:700;color:var(--t);line-height:1.8;letter-spacing:1px\">お誕生日おめでとう！🎉<br>39！これからもよろしくね ♪<br><span style=\"font-size:12px;color:var(--td)\">—— 初音ミクより 💚</span></div></div></div>';p.style.flexDirection='column';p.style.gap='8px';p.innerHTML=bh;for(var k=0;k<3;k++){setTimeout(function(){for(var j=0;j<40;j++){var cs=['#39c5bb','#6ee7de','#1a8a82','#b3f5f0','#e0fffc'],fp=document.createElement('div');fp.className='fwp';var a=Math.random()*Math.PI*2,dd=50+Math.random()*180,sz=2+Math.random()*7,c=cs[Math.floor(Math.random()*cs.length)];fp.style.cssText='left:'+(window.innerWidth*0.2+Math.random()*window.innerWidth*0.6)+'px;top:'+(window.innerHeight*0.35+Math.random()*window.innerHeight*0.35)+'px;width:'+sz+'px;height:'+sz+'px;background:'+c+';border-radius:'+(Math.random()>0.5?'50%':'2px')+';box-shadow:0 0 '+(sz*4)+'px '+c+';--dx:0;--dy:0;--ds:0;--dur:'+(0.8+Math.random()*1.2)+'s';document.body.appendChild(fp);setTimeout(function(){fp.remove()},1500)}},k*600+200)}}return}setTimeout(cd,1000)})();
 // --- Fan Submissions ---
 var subData=null;
