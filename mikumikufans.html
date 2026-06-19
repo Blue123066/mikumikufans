@@ -178,16 +178,15 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <nav class="nav">
   <span class="nb">MIKUMIKUFANS</span>
   <a href="#home">海报</a>
-  <a href="#calendar">ミク紹介</a>
   <a href="#details">详情</a>
   <a href="#guests">嘉宾</a>
   <a href="#gallery">画廊</a>
   <a href="#tickets">购票</a>
   <a href="#guestbook">留言</a>
-  <a href="#about">关于</a>
   <a href="#fortune">占卜</a>
   <a href="#submit">投稿</a>
-  <a href="#game">小游戏</a>
+  <a href="#" onclick="location.href='miku-game.html';return false">小游戏</a>
+  <a href="#about">关于</a>
 </nav>
 
 <div class="ptl"><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div></div>
@@ -227,100 +226,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <input class="dm-input" id="dm-text" placeholder="发一条应援弹幕吧！" maxlength="30" onkeydown="if(event.key==='Enter')sendDanmaku()">
     <button class="dm-btn" onclick="sendDanmaku()">发射</button>
   </div>
-  <div class="footer">© 2026 MIKUMIKUFANS</div>
-</div>
-
-<!-- DETAILS -->
-<div class="page" id="details">
-  <div class="content-page">
-    <div class="st">演出详情</div><div class="ss">EVENT DETAILS</div>
-    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:28px">
-      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-d">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">天</div></div>
-      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-h">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">时</div></div>
-      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-m">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">分</div></div>
-      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-s">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">秒</div></div>
-    </div>
-    <div class="dc"><div class="dct">📅 演出时间</div><div class="dcb"><strong>2026年6月19日（周五）</strong><br>入场 17:30 · 开演 18:00 · 预计 2 小时</div></div>
-    <div class="dc"><div class="dct">📍 演出场地</div><div class="dcb"><strong>青岛 · 场地待定</strong><br>具体场地演出前一周公布</div></div>
-    <div class="dc"><div class="dct">🎵 演出曲目</div><div class="dcb">初音ミク经典曲目及 Hery Band 合作曲</div></div>
-    <div class="dc"><div class="dct">⚠️ 注意事项</div><div class="dcb">· 提前30分钟入场 · 禁止录音录像 · 荧光棒自备</div></div>
-  </div>
-  <div class="footer">© 2026 MIKUMIKUFANS</div>
-</div>
-
-<!-- GUESTS -->
-<div class="page" id="guests">
-  <div class="content-page">
-    <div class="st">嘉宾阵容</div><div class="ss">SPECIAL GUESTS</div>
-    <div class="guest-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">
-      <div class="dc" style="text-align:center;cursor:pointer" onclick="showGuest('popipa')"><div style="font-size:40px;margin-bottom:12px">🎸</div><div style="font-size:15px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:6px">Poppin'Party</div><div style="font-size:11px;color:var(--td)">青春朋克 · 户山香澄</div></div>
-      <div class="dc" style="text-align:center;cursor:pointer" onclick="showGuest('roselia')"><div style="font-size:40px;margin-bottom:12px">🌹</div><div style="font-size:15px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:6px">Roselia</div><div style="font-size:11px;color:var(--td)">哥特摇滚 · 凑友希那</div></div>
-      <div class="dc" style="text-align:center;cursor:pointer" onclick="showGuest('ras')"><div style="font-size:40px;margin-bottom:12px">⚡</div><div style="font-size:15px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:6px">RAISE A SUILEN</div><div style="font-size:11px;color:var(--td)">电子摇滚 · LAYER</div></div>
-    </div>
-    <div class="dc"><div class="dct">🎤 特别环节</div><div class="dcb"><strong>初音ミク × Hery Band</strong> 特别合作</div></div>
-  </div>
-  <div class="footer">© 2026 MIKUMIKUFANS</div>
-</div>
-
-<!-- GALLERY -->
-<div class="page" id="gallery">
-  <div class="content-page">
-    <div class="st">照片墙</div><div class="ss">PHOTO WALL</div>
-    <div class="gg">
-      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-qrle55.png) center/cover"></div>
-      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-k82p6d.png) center/cover"></div>
-      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-9orjyk.png) center/cover"></div>
-      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-poyqx9.png) center/cover"></div>
-      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-qrl18l.png) center/cover"></div>
-      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-w5m2rr.png) center/cover"></div>
-    </div>
-    <div style="text-align:center;font-size:10px;color:var(--td);letter-spacing:1px;margin-top:12px">📸 图片来自 wallhaven.cc 用户 · 特别鸣谢</div>
-  </div>
-  <div class="footer">© 2026 MIKUMIKUFANS</div>
-</div>
-
-<!-- TICKETS -->
-<div class="page" id="tickets">
-  <div class="content-page">
-    <div class="st">购票通道</div><div class="ss">TICKETS</div>
-    <div class="to">
-      <div class="tc rec" onclick="alert('早鸟票 ¥60')"><div class="badge">推荐</div><div class="tcn">早鸟票</div><div class="tcp">¥60</div><div style="font-size:11px;color:var(--td)">限量 · 售完即止</div></div>
-      <div class="tc" onclick="alert('现场票 ¥80')"><div class="tcn">现场票</div><div class="tcp">¥80</div><div style="font-size:11px;color:var(--td)">现场购买</div></div>
-    </div>
-    <div class="dc"><div class="dct">💡 购票须知</div><div class="dcb">· 早鸟每人限购 <strong>2</strong> 张 · 不支持退换</div></div>
-  </div>
-  <div class="footer">© 2026 MIKUMIKUFANS</div>
-</div>
-
-<!-- GUESTBOOK -->
-<div class="page" id="guestbook">
-  <div class="content-page">
-    <div class="st">留言板</div><div class="ss">GUESTBOOK</div>
-    <div class="gf">
-      <input class="gi" id="gbn" placeholder="你的昵称" maxlength="20">
-      <textarea class="gi gt" id="gbt" placeholder="写下你想说的话..." maxlength="500"></textarea>
-      <button class="gbs" id="gbb">💬 留言</button>
-    </div>
-    <div class="gms" id="gbl"></div>
-  </div>
-  <div class="footer">© 2026 MIKUMIKUFANS</div>
-</div>
-
-<!-- ABOUT -->
-<div class="page" id="about">
-  <div class="content-page">
-    <div class="st">关于我们</div><div class="ss">ABOUT</div>
-    <div style="text-align:center;font-size:80px;margin-bottom:28px;filter:drop-shadow(0 0 20px var(--mg))">🎤</div>
-    <div class="dc"><div class="dct">📖 关于本站</div><div class="dcb">MIKUMIKUFANS 是一个面向<strong>初音ミク</strong>中文粉丝的非官方应援站点。我们致力于为国内 Miku 爱好者提供一个信息聚合、互动交流与资源共享的平台。<br><br>本站由粉丝自发创建与维护，与 Crypton Future Media 及任何商业机构无直接关联。</div></div>
-    <div class="dc"><div class="dct">🎯 我们的愿景</div><div class="dcb">· 推广初音ミク与 Vocaloid 文化在中国的传播<br>· 为粉丝提供活动信息与应援渠道<br>· 打造温馨、活跃的 Miku 粉丝社区</div></div>
-    <div class="dc"><div class="dct">📧 联系方式</div><div class="dcb">如有任何建议、合作意向或问题反馈，欢迎通过以下方式联系我们：<br><br>📮 本站留言板（推荐）<br></div></div>
-    <div class="dc"><div class="dct">💚 特别鸣谢</div><div class="dcb">感谢每一位访问本站的 Miku 粉丝。感谢所有 Vocaloid P 主、画师、创作者们为 Miku 注入灵魂。<br><br><strong style="color:var(--miku)">ミクの歌声は、世界をつなぐ ✦</strong></div></div>
-  </div>
-  <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
-</div>
-
-<!-- MIKU PROFILE -->
-<div class="page" id="calendar">
   <div class="content-page">
     <div class="st">初音ミク</div><div class="ss">HATSUNE MIKU</div>
     <div style="text-align:center;font-size:72px;margin-bottom:28px">🎤</div>
@@ -420,6 +325,95 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     </div>
   </div>
   <div class="footer">© 2026 MIKUMIKUFANS</div>
+</div>
+
+<!-- DETAILS -->
+<div class="page" id="details">
+  <div class="content-page">
+    <div class="st">演出详情</div><div class="ss">EVENT DETAILS</div>
+    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:28px">
+      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-d">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">天</div></div>
+      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-h">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">时</div></div>
+      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-m">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">分</div></div>
+      <div style="text-align:center;min-width:56px"><div style="font-family:'Bebas Neue',sans-serif;font-size:38px;background:linear-gradient(180deg,var(--ml),var(--miku));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" id="cd-s">--</div><div style="font-size:10px;letter-spacing:2px;color:var(--td);margin-top:2px">秒</div></div>
+    </div>
+    <div class="dc"><div class="dct">📅 演出时间</div><div class="dcb"><strong>2026年6月19日（周五）</strong><br>入场 17:30 · 开演 18:00 · 预计 2 小时</div></div>
+    <div class="dc"><div class="dct">📍 演出场地</div><div class="dcb"><strong>青岛 · 场地待定</strong><br>具体场地演出前一周公布</div></div>
+    <div class="dc"><div class="dct">🎵 演出曲目</div><div class="dcb">初音ミク经典曲目及 Hery Band 合作曲</div></div>
+    <div class="dc"><div class="dct">⚠️ 注意事项</div><div class="dcb">· 提前30分钟入场 · 禁止录音录像 · 荧光棒自备</div></div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS</div>
+</div>
+
+<!-- GUESTS -->
+<div class="page" id="guests">
+  <div class="content-page">
+    <div class="st">嘉宾阵容</div><div class="ss">SPECIAL GUESTS</div>
+    <div class="guest-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">
+      <div class="dc" style="text-align:center;cursor:pointer" onclick="showGuest('popipa')"><div style="font-size:40px;margin-bottom:12px">🎸</div><div style="font-size:15px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:6px">Poppin'Party</div><div style="font-size:11px;color:var(--td)">青春朋克 · 户山香澄</div></div>
+      <div class="dc" style="text-align:center;cursor:pointer" onclick="showGuest('roselia')"><div style="font-size:40px;margin-bottom:12px">🌹</div><div style="font-size:15px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:6px">Roselia</div><div style="font-size:11px;color:var(--td)">哥特摇滚 · 凑友希那</div></div>
+      <div class="dc" style="text-align:center;cursor:pointer" onclick="showGuest('ras')"><div style="font-size:40px;margin-bottom:12px">⚡</div><div style="font-size:15px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:6px">RAISE A SUILEN</div><div style="font-size:11px;color:var(--td)">电子摇滚 · LAYER</div></div>
+    </div>
+    <div class="dc"><div class="dct">🎤 特别环节</div><div class="dcb"><strong>初音ミク × Hery Band</strong> 特别合作</div></div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS</div>
+</div>
+
+<!-- GALLERY -->
+<div class="page" id="gallery">
+  <div class="content-page">
+    <div class="st">照片墙</div><div class="ss">PHOTO WALL</div>
+    <div class="gg">
+      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-qrle55.png) center/cover"></div>
+      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-k82p6d.png) center/cover"></div>
+      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-9orjyk.png) center/cover"></div>
+      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-poyqx9.png) center/cover"></div>
+      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-qrl18l.png) center/cover"></div>
+      <div class="gc" onclick="void(0)" style="background:url(https://cdn.jsdelivr.net/gh/Blue123066/mikumikufans@main/gallery/wallhaven-w5m2rr.png) center/cover"></div>
+    </div>
+    <div style="text-align:center;font-size:10px;color:var(--td);letter-spacing:1px;margin-top:12px">📸 图片来自 wallhaven.cc 用户 · 特别鸣谢</div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS</div>
+</div>
+
+<!-- TICKETS -->
+<div class="page" id="tickets">
+  <div class="content-page">
+    <div class="st">购票通道</div><div class="ss">TICKETS</div>
+    <div class="to">
+      <div class="tc rec" onclick="alert('早鸟票 ¥60')"><div class="badge">推荐</div><div class="tcn">早鸟票</div><div class="tcp">¥60</div><div style="font-size:11px;color:var(--td)">限量 · 售完即止</div></div>
+      <div class="tc" onclick="alert('现场票 ¥80')"><div class="tcn">现场票</div><div class="tcp">¥80</div><div style="font-size:11px;color:var(--td)">现场购买</div></div>
+    </div>
+    <div class="dc"><div class="dct">💡 购票须知</div><div class="dcb">· 早鸟每人限购 <strong>2</strong> 张 · 不支持退换</div></div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS</div>
+</div>
+
+<!-- GUESTBOOK -->
+<div class="page" id="guestbook">
+  <div class="content-page">
+    <div class="st">留言板</div><div class="ss">GUESTBOOK</div>
+    <div class="gf">
+      <input class="gi" id="gbn" placeholder="你的昵称" maxlength="20">
+      <textarea class="gi gt" id="gbt" placeholder="写下你想说的话..." maxlength="500"></textarea>
+      <button class="gbs" id="gbb">💬 留言</button>
+    </div>
+    <div class="gms" id="gbl"></div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS</div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="about">
+  <div class="content-page">
+    <div class="st">关于我们</div><div class="ss">ABOUT</div>
+    <div style="text-align:center;font-size:80px;margin-bottom:28px;filter:drop-shadow(0 0 20px var(--mg))">🎤</div>
+    <div class="dc"><div class="dct">📖 关于本站</div><div class="dcb">MIKUMIKUFANS 是一个面向<strong>初音ミク</strong>中文粉丝的非官方应援站点。我们致力于为国内 Miku 爱好者提供一个信息聚合、互动交流与资源共享的平台。<br><br>本站由粉丝自发创建与维护，与 Crypton Future Media 及任何商业机构无直接关联。</div></div>
+    <div class="dc"><div class="dct">🎯 我们的愿景</div><div class="dcb">· 推广初音ミク与 Vocaloid 文化在中国的传播<br>· 为粉丝提供活动信息与应援渠道<br>· 打造温馨、活跃的 Miku 粉丝社区</div></div>
+    <div class="dc"><div class="dct">📧 联系方式</div><div class="dcb">如有任何建议、合作意向或问题反馈，欢迎通过以下方式联系我们：<br><br>📮 本站留言板（推荐）<br></div></div>
+    <div class="dc"><div class="dct">💚 特别鸣谢</div><div class="dcb">感谢每一位访问本站的 Miku 粉丝。感谢所有 Vocaloid P 主、画师、创作者们为 Miku 注入灵魂。<br><br><strong style="color:var(--miku)">ミクの歌声は、世界をつなぐ ✦</strong></div></div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
 </div>
 
 <!-- SUBMIT -->
