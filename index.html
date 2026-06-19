@@ -508,12 +508,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   </div>
   <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
 </div>
-      </div>
-      <a href="miku-game.html" target="_blank" style="display:inline-block;margin-top:8px;padding:12px 32px;background:linear-gradient(135deg,var(--miku),var(--md));color:var(--bg);border:none;border-radius:24px;font-weight:700;cursor:pointer;letter-spacing:2px;font-family:inherit;text-decoration:none;font-size:14px;transition:all 0.3s" onmouseover="this.style.boxShadow='0 0 24px var(--mg)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='translateY(0)'">▶ 开始游戏（新窗口）</a>
-    </div>
-  </div>
-  <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
-</div>
 
 <audio id="bgm" loop preload="auto"></audio>
 <div class="mplayer" id="mplayer">
@@ -607,8 +601,9 @@ function share(){
   var ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center';
   ov.onclick=function(e){if(e.target===ov)ov.remove()};
   var bx=document.createElement('div');bx.style.cssText='background:var(--s);border:1px solid var(--miku);border-radius:16px;max-width:380px;width:90%;padding:32px 28px;text-align:center;box-shadow:0 0 60px rgba(57,197,187,0.2);animation:pgIn 0.3s ease-out';
-  bx.innerHTML='<div style="font-size:40px;margin-bottom:8px">📤</div><div style="font-family:Bebas Neue,sans-serif;font-size:24px;letter-spacing:4px;color:var(--miku);margin-bottom:4px">SHARE</div><div style="font-size:12px;color:var(--td);letter-spacing:3px;margin-bottom:20px">分享给朋友</div><div style="background:var(--s2);border-radius:10px;padding:16px;margin-bottom:16px;word-break:break-all"><code style="font-size:12px;color:var(--t)">https://mymikufans.top</code></div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button onclick="copyLink()" style="padding:10px 20px;background:var(--miku);color:var(--bg);border:none;border-radius:20px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:2px;font-size:12px">📋 复制链接</button><button onclick="shareVia(\'weibo\')" style="padding:10px 20px;background:var(--s2);border:1px solid var(--b);border-radius:20px;color:var(--t);cursor:pointer;font-family:inherit;font-size:12px">🔴 微博</button><button onclick="shareVia(\'qq\')" style="padding:10px 20px;background:var(--s2);border:1px solid var(--b);border-radius:20px;color:var(--t);cursor:pointer;font-family:inherit;font-size:12px">🐧 QQ</button></div><button onclick="this.parentElement.parentElement.remove()" style="margin-top:12px;background:none;border:none;color:var(--td);cursor:pointer;font-family:inherit;font-size:12px">✕ 关闭</button>';
+  bx.innerHTML='<div style="font-size:40px;margin-bottom:8px">📤</div><div style="font-family:Bebas Neue,sans-serif;font-size:24px;letter-spacing:4px;color:var(--miku);margin-bottom:4px">SHARE</div><div style="font-size:12px;color:var(--td);letter-spacing:3px;margin-bottom:20px">分享给朋友</div><div style="background:var(--s2);border-radius:10px;padding:16px;margin-bottom:16px;word-break:break-all"><code style="font-size:12px;color:var(--t)" id="share-url">https://mymikufans.top</code></div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button id="copy-link-btn" style="padding:10px 20px;background:var(--miku);color:var(--bg);border:none;border-radius:20px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:2px;font-size:12px">📋 复制链接</button><button onclick="shareVia(\'weibo\')" style="padding:10px 20px;background:var(--s2);border:1px solid var(--b);border-radius:20px;color:var(--t);cursor:pointer;font-family:inherit;font-size:12px">🔴 微博</button><button onclick="shareVia(\'qq\')" style="padding:10px 20px;background:var(--s2);border:1px solid var(--b);border-radius:20px;color:var(--t);cursor:pointer;font-family:inherit;font-size:12px">🐧 QQ</button></div><button onclick="this.parentElement.parentElement.remove()" style="margin-top:12px;background:none;border:none;color:var(--td);cursor:pointer;font-family:inherit;font-size:12px">✕ 关闭</button>';
   ov.appendChild(bx);document.body.appendChild(ov);
+  document.getElementById('copy-link-btn').onclick=copyLink;
 }
 function copyLink(){navigator.clipboard.writeText('https://mymikufans.top').then(function(){
   var el=document.querySelector('#share-modal code');
