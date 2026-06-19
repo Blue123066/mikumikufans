@@ -183,10 +183,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <a href="#guests">嘉宾</a>
   <a href="#gallery">画廊</a>
   <a href="#tickets">购票</a>
-  <a href="#guestbook">留言</a>
-  <a href="#fortune">占卜</a>
-  <a href="#submit">投稿</a>
-  <a href="#" onclick="location.href='miku-game.html';return false">小游戏</a>
+  <a href="#guestbook">互动</a>
+  <a href="#fortune">娱乐</a>
   <a href="#about">关于</a>
   <div class="nav-indicator"></div>
 </nav>
@@ -433,29 +431,24 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   </div>
   <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
 </div>
-
-<!-- ABOUT -->
-<div class="page" id="about">
+<!-- GUESTBOOK + SUBMISSIONS -->
+<div class="page" id="guestbook">
   <div class="content-page">
-    <div class="st">关于我们</div><div class="ss">ABOUT</div>
-    <div style="text-align:center;font-size:80px;margin-bottom:28px;filter:drop-shadow(0 0 20px var(--mg))">🎤</div>
-    <div class="dc"><div class="dct">📖 关于本站</div><div class="dcb">MIKUMIKUFANS 是一个面向<strong>初音ミク</strong>中文粉丝的非官方应援站点。我们致力于为国内 Miku 爱好者提供一个信息聚合、互动交流与资源共享的平台。<br><br>本站由粉丝自发创建与维护，与 Crypton Future Media 及任何商业机构无直接关联。</div></div>
-    <div class="dc"><div class="dct">🎯 我们的愿景</div><div class="dcb">· 推广初音ミク与 Vocaloid 文化在中国的传播<br>· 为粉丝提供活动信息与应援渠道<br>· 打造温馨、活跃的 Miku 粉丝社区</div></div>
-    <div class="dc"><div class="dct">📧 联系方式</div><div class="dcb">如有任何建议、合作意向或问题反馈，欢迎通过以下方式联系我们：<br><br>📮 本站留言板（推荐）<br></div></div>
-    <div class="dc"><div class="dct">💚 特别鸣谢</div><div class="dcb">感谢每一位访问本站的 Miku 粉丝。感谢所有 Vocaloid P 主、画师、创作者们为 Miku 注入灵魂。<br><br><strong style="color:var(--miku)">ミクの歌声は、世界をつなぐ ✦</strong></div></div>
-  </div>
-  <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
-</div>
-
-<!-- SUBMIT -->
-<div class="page" id="submit">
-  <div class="content-page">
-    <div class="st">粉丝投稿</div><div class="ss">FAN SUBMISSIONS</div>
-    <div style="text-align:center;font-size:11px;color:var(--td);letter-spacing:1px;margin:0 0 16px;padding:8px;background:var(--s2);border-radius:8px;border:1px solid var(--b)">💡 投稿保存在你的浏览器中，只有你能看到。后续会支持云端共享。</div>
+    <div class="st">互动区</div><div class="ss">INTERACTIVE</div>
+    <div style="font-size:13px;font-weight:900;color:var(--miku);letter-spacing:3px;margin-bottom:16px;padding-left:4px">💬 留言板</div>
+    <div class="gf">
+      <input class="gi" id="gbn" placeholder="你的昵称" maxlength="20">
+      <textarea class="gi gt" id="gbt" placeholder="写下你想说的话..." maxlength="500"></textarea>
+      <button class="gbs" id="gbb">💬 留言</button>
+    </div>
+    <div class="gms" id="gbl"></div>
+    <div style="margin:36px 0 20px;border-top:1px solid var(--b)"></div>
+    <div style="font-size:13px;font-weight:900;color:var(--miku);letter-spacing:3px;margin-bottom:8px;padding-left:4px">📤 粉丝投稿</div>
+    <div style="text-align:center;font-size:11px;color:var(--td);letter-spacing:1px;margin:0 0 16px;padding:8px;background:var(--s2);border-radius:8px;border:1px solid var(--b)">💡 投稿保存在你的浏览器中，只有你能看到</div>
     <div class="gf">
       <input class="gi" id="sub-title" placeholder="作品标题" maxlength="40">
       <div style="display:flex;gap:10px;align-items:center">
-        <label class="sub-upload-btn" for="sub-file">📁 选择图片</label>
+        <label class="sub-upload-btn" for="sub-file" style="padding:8px 16px;background:var(--s2);border:1px solid var(--b);border-radius:8px;color:var(--t);cursor:pointer;font-family:inherit;font-size:12px">📁 选择图片</label>
         <input type="file" id="sub-file" accept="image/*" style="display:none" onchange="previewSub()">
         <span id="sub-file-name" style="font-size:11px;color:var(--td)">未选择文件</span>
       </div>
@@ -469,10 +462,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
 </div>
 
-<!-- FORTUNE -->
+<!-- FORTUNE + GAME -->
 <div class="page" id="fortune">
   <div class="content-page">
-    <div class="st">ミク占卜</div><div class="ss">MIKU FORTUNE</div>
+    <div class="st">娱乐中心</div><div class="ss">ENTERTAINMENT</div>
+    <div style="font-size:13px;font-weight:900;color:var(--miku);letter-spacing:3px;margin-bottom:16px;padding-left:4px">🔮 ミク占卜</div>
     <div style="text-align:center;margin:10px 0 24px;font-size:12px;color:var(--td);letter-spacing:2px">点击卡片翻转 ✦ 听听ミク想对你说什么</div>
     <div class="fortune-scene" onclick="flipFortune()">
       <div class="fortune-card" id="fortune-card">
@@ -491,22 +485,29 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <div style="text-align:center;margin-top:16px">
       <button class="gbs" onclick="resetFortune()">🔄 再抽一次</button>
     </div>
+    <div style="margin:36px 0 20px;border-top:1px solid var(--b)"></div>
+    <div style="font-size:13px;font-weight:900;color:var(--miku);letter-spacing:3px;margin-bottom:16px;padding-left:4px">🎮 接葱小游戏</div>
+    <div style="text-align:center">
+      <div style="font-size:48px;margin-bottom:12px">🧅</div>
+      <div style="font-size:14px;color:var(--td);line-height:1.8">用键盘 ← → 或手指拖动 Miku<br>接住掉落的大葱！</div>
+      <a href="miku-game.html" target="_blank" style="display:inline-block;margin-top:12px;padding:12px 32px;background:linear-gradient(135deg,var(--miku),var(--md));color:var(--bg);border:none;border-radius:24px;font-weight:700;cursor:pointer;letter-spacing:2px;font-family:inherit;text-decoration:none;font-size:14px;transition:all 0.3s" onmouseover="this.style.boxShadow='0 0 24px var(--mg)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='translateY(0)'">▶ 开始游戏（新窗口）</a>
+    </div>
   </div>
   <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
 </div>
 
-<!-- GAME -->
-<div class="page" id="game">
+<!-- ABOUT -->
+<div class="page" id="about">
   <div class="content-page">
-    <div class="st">小游戏</div><div class="ss">CATCH THE LEEKS</div>
-    <div style="text-align:center;margin-bottom:28px">
-      <div style="font-size:64px;margin-bottom:16px">🎮🪻</div>
-      <div class="dc" style="text-align:center">
-        <div class="dct">🥬 接住大葱！</div>
-        <div class="dcb">帮助初音ミク接住从天而降的大葱吧！<br>
-          使用 ← → 方向键 或手指拖动来控制 Miku<br>
-          接到一根葱 = 1分 · 漏掉3根游戏结束<br>
-          速度会越来越快哦！</div>
+    <div class="st">关于我们</div><div class="ss">ABOUT</div>
+    <div style="text-align:center;font-size:80px;margin-bottom:28px;filter:drop-shadow(0 0 20px var(--mg))">🎤</div>
+    <div class="dc"><div class="dct">📖 关于本站</div><div class="dcb">MIKUMIKUFANS 是一个面向<strong>初音ミク</strong>中文粉丝的非官方应援站点。我们致力于为国内 Miku 爱好者提供一个信息聚合、互动交流与资源共享的平台。<br><br>本站由粉丝自发创建与维护，与 Crypton Future Media 及任何商业机构无直接关联。</div></div>
+    <div class="dc"><div class="dct">🎯 我们的愿景</div><div class="dcb">· 推广初音ミク与 Vocaloid 文化在中国的传播<br>· 为粉丝提供活动信息与应援渠道<br>· 打造温馨、活跃的 Miku 粉丝社区</div></div>
+    <div class="dc"><div class="dct">📧 联系方式</div><div class="dcb">如有任何建议、合作意向或问题反馈，欢迎通过以下方式联系我们：<br><br>📮 本站留言板（推荐）<br></div></div>
+    <div class="dc"><div class="dct">💚 特别鸣谢</div><div class="dcb">感谢每一位访问本站的 Miku 粉丝。感谢所有 Vocaloid P 主、画师、创作者们为 Miku 注入灵魂。<br><br><strong style="color:var(--miku)">ミクの歌声は、世界をつなぐ ✦</strong></div></div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
+</div>
       </div>
       <a href="miku-game.html" target="_blank" style="display:inline-block;margin-top:8px;padding:12px 32px;background:linear-gradient(135deg,var(--miku),var(--md));color:var(--bg);border:none;border-radius:24px;font-weight:700;cursor:pointer;letter-spacing:2px;font-family:inherit;text-decoration:none;font-size:14px;transition:all 0.3s" onmouseover="this.style.boxShadow='0 0 24px var(--mg)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='translateY(0)'">▶ 开始游戏（新窗口）</a>
     </div>
