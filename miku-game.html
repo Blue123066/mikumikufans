@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>接住大葱！· MIKUMIKUFANS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#081210;font-family:'Noto Sans SC','PingFang SC',sans-serif;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;height:100dvh}
+#game-wrapper{position:relative;border:2px solid rgba(57,197,187,0.3);border-radius:12px;overflow:hidden;box-shadow:0 0 40px rgba(57,197,187,0.15),0 0 80px rgba(57,197,187,0.05)}
+canvas{display:block;background:linear-gradient(180deg,#0a1f1a 0%,#0e2a24 40%,#132a26 100%)}
+#hud{position:absolute;top:12px;left:16px;right:16px;display:flex;justify-content:space-between;pointer-events:none;z-index:10}
+.hud-item{font-family:'Bebas Neue','Impact',sans-serif;font-size:22px;letter-spacing:2px;color:#39c5bb;text-shadow:0 0 10px rgba(57,197,187,0.5);background:rgba(8,18,16,0.7);padding:4px 12px;border-radius:8px;border:1px solid rgba(57,197,187,0.2)}
+#misses{color:#f88;text-shadow:0 0 10px rgba(255,136,136,0.5)}
+#overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(8,18,16,0.85);backdrop-filter:blur(4px);z-index:20;text-align:center;padding:20px}
+#overlay.hidden{display:none}
+.overlay-title{font-family:'Bebas Neue','Impact',sans-serif;font-size:42px;letter-spacing:4px;background:linear-gradient(135deg,#6ee7de,#39c5bb,#1a8a82);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;filter:drop-shadow(0 0 12px rgba(57,197,187,0.5))}
+.overlay-sub{font-size:14px;color:#d0ece8;letter-spacing:2px;margin-bottom:8px}
+.overlay-score{font-family:'Bebas Neue',sans-serif;font-size:64px;color:#39c5bb;text-shadow:0 0 20px rgba(57,197,187,0.6);margin-bottom:16px}
+.overlay-btn{display:inline-block;padding:12px 36px;background:linear-gradient(135deg,#39c5bb,#1a8a82);color:#081210;border:none;border-radius:24px;font-weight:700;font-size:15px;letter-spacing:3px;cursor:pointer;font-family:inherit;transition:all 0.3s;margin:6px}
+.overlay-btn:hover{box-shadow:0 0 24px rgba(57,197,187,0.5);transform:translateY(-2px)}
+.overlay-btn:active{transform:scale(0.95)}
+.overlay-hint{font-size:11px;color:rgba(208,236,232,0.5);letter-spacing:2px;margin-top:10px}
+.back-link{position:absolute;top:12px;right:16px;z-index:30;font-size:12px;color:rgba(208,236,232,0.6);text-decoration:none;letter-spacing:1px;padding:4px 10px;border:1px solid rgba(57,197,187,0.2);border-radius:12px;transition:all 0.3s}
+.back-link:hover{color:#39c5bb;border-color:#39c5bb}
+@media(max-width:600px){
+  .overlay-title{font-size:30px}
+  .overlay-score{font-size:44px}
+  .hud-item{font-size:16px;padding:3px 8px}
+}
+</style>
+</head>
+<body>
+
+<div id="game-wrapper">
+  <canvas id="game"></canvas>
+  <a class="back-link" href="mikumikufans.html">← 返回</a>
+  <div id="hud">
+    <span class="hud-item" id="score-display">🥬 0</span>
+    <span class="hud-item" id="misses">❤️ ❤️ ❤️</span>
+  </div>
+  <div id="overlay">
+    <div class="overlay-title">MIKU LEAF CATCH</div>
+    <div class="overlay-sub">🥬 接住大葱！</div>
+    <div style="font-size:64px;margin:16px 0;filter:drop-shadow(0 0 20px rgba(57,197,187,0.5))">🪻</div>
+    <button class="overlay-btn" onclick="startGame()">▶ 开始游戏</button>
+    <div class="overlay-hint">← → 方向键 / 手指拖动 控制 Miku</div>
+    <div class="overlay-hint">漏掉 3 根游戏结束</div>
+  </div>
+</div>
+
+<script>
+(function(){
+var canvas=document.getElementById('game'),ctx=canvas.getContext('2d');
+var gw,gh,player={x:0,y:0,w:48,h:56},leeks=[],score=0,misses=0,maxMisses=3;
+var speed=2,spawnInterval=1200,lastSpawn=0,lastFrame=0,gameRunning=false,gameOver=false;
+var keys={},touchActive=false,touchX=0;
+
+function resize(){
+  var maxW=Math.min(window.innerWidth-16,500),maxH=Math.min(window.innerHeight-20,700);
+  gw=maxW;gh=maxH;canvas.width=gw;canvas.height=gh;
+  player.x=gw/2-player.w/2;player.y=gh-player.h-20;
+}
+window.addEventListener('resize',resize);resize();
+
+// Input
+window.addEventListener('keydown',function(e){keys[e.key]=true;e.preventDefault()});
+window.addEventListener('keyup',function(e){keys[e.key]=false;e.preventDefault()});
+canvas.addEventListener('touchstart',function(e){e.preventDefault();var t=e.touches[0];touchActive=true;touchX=t.clientX;var rect=canvas.getBoundingClientRect();player.x=t.clientX-rect.left-player.w/2});
+canvas.addEventListener('touchmove',function(e){e.preventDefault();var t=e.touches[0];touchX=t.clientX;var rect=canvas.getBoundingClientRect();player.x=t.clientX-rect.left-player.w/2});
+canvas.addEventListener('touchend',function(e){e.preventDefault();touchActive=false});
+canvas.addEventListener('mousemove',function(e){if(!touchActive)return;var rect=canvas.getBoundingClientRect();player.x=e.clientX-rect.left-player.w/2});
+
+function clampPlayer(){player.x=Math.max(0,Math.min(gw-player.w,player.x))}
+
+function spawnLeek(){
+  var x=Math.random()*(gw-20)+10;
+  leeks.push({x:x,y:-30,w:16,h:50,vy:speed+Math.random()*1.5});
+}
+
+function drawMiku(x,y){
+  // Body (teal dress)
+  ctx.fillStyle='#39c5bb';
+  ctx.beginPath();ctx.moveTo(x+12,y+18);ctx.lineTo(x+36,y+18);ctx.lineTo(x+44,y+54);ctx.lineTo(x+4,y+54);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#1a8a82';ctx.lineWidth=1.5;ctx.stroke();
+  // Head
+  ctx.fillStyle='#ffe0bd';
+  ctx.beginPath();ctx.arc(x+24,y+12,13,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#1a8a82';ctx.stroke();
+  // Hair (long twin tails - teal)
+  ctx.fillStyle='#39c5bb';
+  ctx.beginPath();ctx.moveTo(x+11,y+10);ctx.lineTo(x+6,y-4);ctx.lineTo(x-4,y+2);ctx.lineTo(x+4,y+12);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(x+37,y+10);ctx.lineTo(x+42,y-4);ctx.lineTo(x+52,y+2);ctx.lineTo(x+44,y+12);ctx.closePath();ctx.fill();
+  // Hair top
+  ctx.beginPath();ctx.arc(x+24,y+6,13,Math.PI,2*Math.PI);ctx.fill();
+  // Bangs
+  ctx.fillStyle='#6ee7de';
+  ctx.beginPath();ctx.moveTo(x+11,y+2);ctx.lineTo(x+8,y+8);ctx.lineTo(x+14,y+3);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(x+37,y+2);ctx.lineTo(x+40,y+8);ctx.lineTo(x+34,y+3);ctx.closePath();ctx.fill();
+  // Eyes
+  ctx.fillStyle='#081210';
+  ctx.beginPath();ctx.arc(x+17,y+11,2.5,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(x+31,y+11,2.5,0,Math.PI*2);ctx.fill();
+  // Eye highlight
+  ctx.fillStyle='#fff';
+  ctx.beginPath();ctx.arc(x+18,y+10,1,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(x+32,y+10,1,0,Math.PI*2);ctx.fill();
+  // Mouth (small smile)
+  ctx.strokeStyle='#081210';ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(x+24,y+16,3,0.1,Math.PI-0.1);ctx.stroke();
+  // Headset / hairband
+  ctx.strokeStyle='#e0fffc';ctx.lineWidth=2;
+  ctx.beginPath();ctx.arc(x+24,y+4,15,Math.PI+0.5,2*Math.PI-0.5);ctx.stroke();
+  // ⭐ mark
+  ctx.fillStyle='#ffdf00';ctx.font='8px sans-serif';
+  ctx.fillText('⭐',x+18,y+25);
+}
+
+function drawLeek(x,y,w,h){
+  // Leek body - green gradient
+  var grad=ctx.createLinearGradient(x,y,x,y+h);
+  grad.addColorStop(0,'#8bc34a');grad.addColorStop(0.6,'#4caf50');grad.addColorStop(1,'#fff');
+  ctx.fillStyle=grad;
+  ctx.beginPath();
+  ctx.moveTo(x+w*0.3,y);ctx.lineTo(x+w*0.7,y);
+  ctx.lineTo(x+w*0.8,y+h*0.6);ctx.lineTo(x+w,y+h);
+  ctx.lineTo(x,y+h);ctx.lineTo(x+w*0.2,y+h*0.6);
+  ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#388e3c';ctx.lineWidth=1.5;ctx.stroke();
+  // White root area
+  ctx.fillStyle='rgba(255,255,255,0.6)';
+  ctx.beginPath();ctx.moveTo(x,y+h*0.7);ctx.lineTo(x+w,y+h*0.7);
+  ctx.lineTo(x+w*0.85,y+h);ctx.lineTo(x+w*0.15,y+h);ctx.closePath();ctx.fill();
+}
+
+function drawBackground(){
+  // Stars / particles
+  var t=performance.now()*0.001;
+  for(var i=0;i<30;i++){
+    var sx=(i*137+50)%gw,sy=(i*173+30)%gh;
+    var alpha=0.3+Math.sin(t*2+i)*0.2;
+    ctx.fillStyle='rgba(110,231,222,'+alpha+')';
+    ctx.beginPath();ctx.arc(sx,sy,1.2,0,Math.PI*2);ctx.fill();
+  }
+  // Ground line
+  ctx.strokeStyle='rgba(57,197,187,0.15)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,gh-8);ctx.lineTo(gw,gh-8);ctx.stroke();
+}
+
+function update(dt){
+  if(!gameRunning||gameOver)return;
+  // Player movement
+  var moveSpeed=350*dt;
+  if(keys['ArrowLeft']||keys['a']||keys['A'])player.x-=moveSpeed;
+  if(keys['ArrowRight']||keys['d']||keys['D'])player.x+=moveSpeed;
+  clampPlayer();
+
+  // Spawn
+  lastSpawn+=dt*1000;
+  if(lastSpawn>=spawnInterval){spawnLeek();lastSpawn=0}
+
+  // Update leeks
+  for(var i=leeks.length-1;i>=0;i--){
+    leeks[i].y+=leeks[i].vy*dt*60;
+    // Check catch
+    var l=leeks[i];
+    if(l.y+l.h>player.y&&l.y<player.y+player.h&&l.x+l.w>player.x&&l.x<player.x+player.w){
+      score++;leeks.splice(i,1);
+      // Speed up
+      if(score%5===0){speed+=0.3;spawnInterval=Math.max(400,spawnInterval-80)}
+      continue;
+    }
+    // Miss
+    if(l.y>gh){leeks.splice(i,1);misses++;if(misses>=maxMisses){endGame()}}
+  }
+}
+
+function draw(){
+  ctx.clearRect(0,0,gw,gh);
+  drawBackground();
+  // Leeks
+  for(var i=0;i<leeks.length;i++)drawLeek(leeks[i].x,leeks[i].y,leeks[i].w,leeks[i].h);
+  // Player
+  drawMiku(player.x,player.y);
+  // HUD
+  document.getElementById('score-display').textContent='🥬 '+score;
+  var mEl=document.getElementById('misses');
+  var hearts='';
+  for(var j=0;j<maxMisses;j++)hearts+=(j<maxMisses-misses)?'❤️ ':'🖤 ';
+  mEl.textContent=hearts;
+}
+
+function gameLoop(timestamp){
+  var dt=lastFrame?(timestamp-lastFrame)/1000:0.016;
+  if(dt>0.1)dt=0.1;
+  lastFrame=timestamp;
+  update(dt);draw();
+  if(gameRunning||!gameOver)requestAnimationFrame(gameLoop);
+}
+
+function startGame(){
+  score=0;misses=0;speed=2;spawnInterval=1200;lastSpawn=0;leeks=[];
+  gameRunning=true;gameOver=false;
+  player.x=gw/2-player.w/2;
+  document.getElementById('overlay').classList.add('hidden');
+  lastFrame=performance.now();
+  requestAnimationFrame(gameLoop);
+}
+
+function endGame(){
+  gameRunning=false;gameOver=true;
+  var ov=document.getElementById('overlay');
+  ov.classList.remove('hidden');
+  ov.innerHTML='<div class="overlay-title">GAME OVER</div><div class="overlay-score">🥬 '+score+'</div><div class="overlay-sub">漏掉了 '+misses+' 根葱</div><button class="overlay-btn" onclick="startGame()">🔄 再来一次</button><a class="overlay-btn" href="mikumikufans.html" style="background:rgba(57,197,187,0.2);color:#d0ece8">← 返回主页</a>';
+}
+
+window.startGame=startGame;
+// Initial draw
+draw();
+})();
+</script>
+</body>
+</html>

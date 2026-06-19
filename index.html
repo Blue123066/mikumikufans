@@ -125,7 +125,46 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .mplayer .mp-progress .mp-fill::after{content:'';position:absolute;right:-6px;top:-4px;width:13px;height:13px;background:var(--ml);border-radius:50%;box-shadow:0 0 8px var(--miku),0 0 16px rgba(57,197,187,0.4),0 2px 4px rgba(0,0,0,0.3);opacity:0;transition:opacity 0.2s}
 .mplayer .mp-progress:hover .mp-fill::after,.mplayer .mp-progress:active .mp-fill::after{opacity:1}
 .footer{text-align:center;padding:40px 20px 64px;font-size:11px;color:var(--td);letter-spacing:3px;border-top:1px solid var(--b);margin-top:20px}
-@media(max-width:740px){.bn{font-size:48px}.bs{font-size:16px;letter-spacing:10px}.pi .pa{font-size:34px}.hero{height:320px}.gg{grid-template-columns:repeat(2,1fr)}.to{grid-template-columns:1fr}.guest-grid{grid-template-columns:repeat(2,1fr)!important}.mplayer{padding:6px 10px;gap:8px}.mplayer .mp-btn{width:28px;height:28px;font-size:11px}}
+/* Calendar */
+.cal-timeline{position:relative;padding-left:24px}
+.cal-timeline::before{content:'';position:absolute;left:7px;top:4px;bottom:4px;width:2px;background:var(--b);border-radius:1px}
+.cal-item{position:relative;padding:4px 0 20px 20px}
+.cal-item:last-child{padding-bottom:0}
+.cal-dot{position:absolute;left:-21px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--s);border:2px solid var(--b);z-index:1}
+.cal-upcoming .cal-dot{background:var(--miku);border-color:var(--miku);box-shadow:0 0 10px var(--mg);animation:calPulse 2s ease-in-out infinite}
+@keyframes calPulse{0%,100%{box-shadow:0 0 8px var(--mg)}50%{box-shadow:0 0 18px rgba(57,197,187,0.7)}}
+.cal-date{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--miku);letter-spacing:2px;margin-bottom:4px}
+.cal-body{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:16px 18px;transition:all 0.25s}
+.cal-item:hover .cal-body{border-color:rgba(57,197,187,0.35);box-shadow:0 0 16px var(--mx)}
+.cal-name{font-size:14px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:6px}
+.cal-desc{font-size:12px;color:var(--td);line-height:1.6}
+/* Submit */
+.sub-upload-btn{display:inline-block;padding:8px 18px;background:var(--s2);border:1px solid var(--b);border-radius:8px;color:var(--t);font-size:13px;cursor:pointer;transition:all 0.25s;letter-spacing:1px}
+.sub-upload-btn:hover{border-color:var(--miku);color:var(--miku)}
+.sub-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:20px}
+.sub-card{background:var(--s);border:1px solid var(--b);border-radius:10px;overflow:hidden;position:relative;transition:all 0.25s}
+.sub-card:hover{border-color:var(--miku);box-shadow:0 0 16px var(--mx);transform:translateY(-3px)}
+.sub-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.sub-card .sub-card-title{font-size:11px;color:var(--td);padding:8px 10px;text-align:center;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub-card .sub-del{position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,0.6);border:none;color:#f88;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s}
+.sub-card:hover .sub-del{opacity:1}
+/* Fortune */
+.fortune-scene{perspective:800px;width:100%;max-width:340px;height:420px;margin:0 auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fortune-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1)}
+.fortune-card.flipped{transform:rotateY(180deg)}
+.fortune-front,.fortune-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid var(--b)}
+.fortune-front{background:linear-gradient(145deg,var(--s),var(--s2));box-shadow:0 0 30px var(--mx)}
+.fortune-front:hover{border-color:var(--miku);box-shadow:0 0 40px var(--mg)}
+.fortune-icon{font-size:80px;margin-bottom:16px;animation:fortuneFloat 3s ease-in-out infinite;filter:drop-shadow(0 0 20px var(--mg))}
+@keyframes fortuneFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.fortune-front-text{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--miku);text-shadow:0 0 12px var(--mg)}
+.fortune-front-sub{font-size:11px;letter-spacing:6px;color:var(--td);margin-top:6px}
+.fortune-back{background:linear-gradient(145deg,var(--s2),var(--s));transform:rotateY(180deg);box-shadow:0 0 30px var(--mx);padding:32px 24px;text-align:center}
+.fortune-result{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:4px;background:linear-gradient(135deg,var(--ml),var(--miku),var(--md));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px;text-shadow:none}
+.fortune-desc{font-size:16px;font-weight:700;color:var(--w);line-height:1.6;margin-bottom:20px;letter-spacing:1px}
+.fortune-lyric{font-size:13px;color:var(--td);font-style:italic;border-top:1px solid var(--b);padding-top:14px;margin-top:8px;letter-spacing:1px;line-height:1.6}
+
+@media(max-width:740px){.bn{font-size:48px}.bs{font-size:16px;letter-spacing:10px}.pi .pa{font-size:34px}.hero{height:320px}.gg{grid-template-columns:repeat(2,1fr)}.to{grid-template-columns:1fr}.guest-grid{grid-template-columns:repeat(2,1fr)!important}.mplayer{padding:6px 10px;gap:8px}.mplayer .mp-btn{width:28px;height:28px;font-size:11px}.fortune-scene{max-width:280px;height:360px}.fortune-icon{font-size:60px}.fortune-front-text{font-size:22px}.fortune-result{font-size:32px}.sub-gallery{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body class="dark">
@@ -145,6 +184,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <a href="#tickets">购票</a>
   <a href="#guestbook">留言</a>
   <a href="#about">关于</a>
+  <a href="#calendar">日历</a>
+  <a href="#submit">投稿</a>
+  <a href="#fortune">占卜</a>
+  <a href="#game">小游戏</a>
 </nav>
 
 <div class="ptl"><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div></div>
@@ -276,6 +319,114 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
 </div>
 
+<!-- CALENDAR -->
+<div class="page" id="calendar">
+  <div class="content-page">
+    <div class="st">活动日历</div><div class="ss">EVENT CALENDAR</div>
+    <div class="cal-timeline" id="cal-list">
+      <div class="cal-item cal-upcoming">
+        <div class="cal-dot"></div>
+        <div class="cal-date">06.19</div>
+        <div class="cal-body">
+          <div class="cal-name">MIKUMIKUFANS Live</div>
+          <div class="cal-desc">青岛 · 18:00 开演 · 初音ミク特别演出</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-dot"></div>
+        <div class="cal-date">08.31</div>
+        <div class="cal-body">
+          <div class="cal-name">🎂 Hatsune Miku Birthday</div>
+          <div class="cal-desc">初音ミク诞生日！全球粉丝一起庆祝！</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-dot"></div>
+        <div class="cal-date">夏季</div>
+        <div class="cal-body">
+          <div class="cal-name">🎆 Magical Mirai</div>
+          <div class="cal-desc">日本最大规模初音ミク演唱会·魔法未来</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-dot"></div>
+        <div class="cal-date">未定</div>
+        <div class="cal-body">
+          <div class="cal-name">🌍 Miku Expo</div>
+          <div class="cal-desc">全球巡回演唱会 · 2026年场次待公布</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS</div>
+</div>
+
+<!-- SUBMIT -->
+<div class="page" id="submit">
+  <div class="content-page">
+    <div class="st">粉丝投稿</div><div class="ss">FAN SUBMISSIONS</div>
+    <div class="gf">
+      <input class="gi" id="sub-title" placeholder="作品标题" maxlength="40">
+      <div style="display:flex;gap:10px;align-items:center">
+        <label class="sub-upload-btn" for="sub-file">📁 选择图片</label>
+        <input type="file" id="sub-file" accept="image/*" style="display:none" onchange="previewSub()">
+        <span id="sub-file-name" style="font-size:11px;color:var(--td)">未选择文件</span>
+      </div>
+      <div id="sub-preview" style="margin:10px 0;display:none;text-align:center">
+        <img id="sub-preview-img" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid var(--b)">
+      </div>
+      <button class="gbs" onclick="submitFanArt()">📤 投稿</button>
+    </div>
+    <div class="sub-gallery" id="sub-gallery"></div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS</div>
+</div>
+
+<!-- FORTUNE -->
+<div class="page" id="fortune">
+  <div class="content-page">
+    <div class="st">ミク占卜</div><div class="ss">MIKU FORTUNE</div>
+    <div style="text-align:center;margin:10px 0 24px;font-size:12px;color:var(--td);letter-spacing:2px">点击卡片翻转 ✦ 听听ミク想对你说什么</div>
+    <div class="fortune-scene" onclick="flipFortune()">
+      <div class="fortune-card" id="fortune-card">
+        <div class="fortune-front">
+          <div class="fortune-icon">🎤</div>
+          <div class="fortune-front-text">点击翻牌</div>
+          <div class="fortune-front-sub">TAP TO FLIP</div>
+        </div>
+        <div class="fortune-back" id="fortune-back">
+          <div class="fortune-result" id="fortune-result">大吉</div>
+          <div class="fortune-desc" id="fortune-desc">今天会收到39条好消息！</div>
+          <div class="fortune-lyric" id="fortune-lyric">「世界で一番お姫様！」</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px">
+      <button class="gbs" onclick="resetFortune()">🔄 再抽一次</button>
+    </div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS</div>
+</div>
+
+<!-- GAME -->
+<div class="page" id="game">
+  <div class="content-page">
+    <div class="st">小游戏</div><div class="ss">CATCH THE LEEKS</div>
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-size:64px;margin-bottom:16px">🎮🪻</div>
+      <div class="dc" style="text-align:center">
+        <div class="dct">🥬 接住大葱！</div>
+        <div class="dcb">帮助初音ミク接住从天而降的大葱吧！<br>
+          使用 ← → 方向键 或手指拖动来控制 Miku<br>
+          接到一根葱 = 1分 · 漏掉3根游戏结束<br>
+          速度会越来越快哦！</div>
+      </div>
+      <a href="miku-game.html" target="_blank" style="display:inline-block;margin-top:8px;padding:12px 32px;background:linear-gradient(135deg,var(--miku),var(--md));color:var(--bg);border:none;border-radius:24px;font-weight:700;cursor:pointer;letter-spacing:2px;font-family:inherit;text-decoration:none;font-size:14px;transition:all 0.3s" onmouseover="this.style.boxShadow='0 0 24px var(--mg)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='translateY(0)'">▶ 开始游戏（新窗口）</a>
+    </div>
+  </div>
+  <div class="footer">© 2026 MIKUMIKUFANS</div>
+</div>
+
 <audio id="bgm" loop preload="auto"></audio>
 <div class="mplayer" id="mplayer">
   <button class="mp-btn" onclick="mpPrev()">&#9664;</button>
@@ -366,6 +517,31 @@ document.getElementById('gbb').onclick=function(){var n=document.getElementById(
 loadMsgs(renderMsgs);
 function share(){var u='https://mymikufans.top';if(navigator.share)navigator.share({title:'MIKUMIKUFANS',text:'6月19日 周五 18:00 · 青岛',url:u}).catch(function(){});else{navigator.clipboard.writeText(u).then(function(){alert('链接已复制！')}).catch(function(){})}}
 (function cd(){var t=new Date('2026-06-19T18:00:00+08:00').getTime(),n=Date.now(),d=Math.max(0,Math.floor((t-n)/864e5)),h=Math.max(0,Math.floor((t-n)/36e5)%24),m=Math.max(0,Math.floor((t-n)/6e4)%60),s=Math.max(0,Math.floor((t-n)/1e3)%60);var el=function(id){return document.getElementById(id)};if(el('cd-d'))el('cd-d').textContent=d;if(el('cd-h'))el('cd-h').textContent=String(h).padStart(2,'0');if(el('cd-m'))el('cd-m').textContent=String(m).padStart(2,'0');if(el('cd-s'))el('cd-s').textContent=String(s).padStart(2,'0');setTimeout(cd,1000)})();
+// --- Fan Submissions ---
+var subData=null;
+function loadSubs(){var d=localStorage.getItem('fan_subs');return d?JSON.parse(d):[]}
+function saveSubs(arr){localStorage.setItem('fan_subs',JSON.stringify(arr))}
+function previewSub(){var f=document.getElementById('sub-file').files[0];if(!f)return;document.getElementById('sub-file-name').textContent=f.name;var r=new FileReader();r.onload=function(e){subData=e.target.result;document.getElementById('sub-preview-img').src=subData;document.getElementById('sub-preview').style.display='block'};r.readAsDataURL(f)}
+function submitFanArt(){var t=document.getElementById('sub-title').value.trim();if(!t)return alert('请输入作品标题');if(!subData)return alert('请选择图片');var subs=loadSubs();subs.unshift({title:t,img:subData,time:new Date().toLocaleString('zh-CN')});saveSubs(subs);document.getElementById('sub-title').value='';document.getElementById('sub-file').value='';document.getElementById('sub-file-name').textContent='未选择文件';document.getElementById('sub-preview').style.display='none';subData=null;renderSubs()}
+function delSub(i){if(!confirm('确定删除？'))return;var subs=loadSubs();subs.splice(i,1);saveSubs(subs);renderSubs()}
+function renderSubs(){var el=document.getElementById('sub-gallery');if(!el)return;var subs=loadSubs();if(!subs.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--td);font-size:13px">还没有投稿 ✦ 快来分享你的作品吧</div>';return}el.innerHTML=subs.map(function(s,i){return'<div class="sub-card"><button class="sub-del" onclick="delSub('+i+')">✕</button><img src="'+s.img+'" alt="'+s.title+'" loading="lazy"><div class="sub-card-title">'+s.title+'</div></div>'}).join('')}
+renderSubs();
+// --- Fortune ---
+var fortunes=[
+  {r:'大吉',d:'今天会收到39条好消息！🎉',l:'「世界で一番お姫様！」'},
+  {r:'大吉',d:'ミク正在为你唱一首特别的歌 ✦',l:'「キラキラドキドキ！」'},
+  {r:'吉',d:'今天是个适合听Vocaloid的日子！',l:'「一緒に歌おう！🎤」'},
+  {r:'中吉',d:'ミク在看着你哦～要加油！💚',l:'「ミクミクにしてあげる♪」'},
+  {r:'中吉',d:'你的应援传达到了！39！',l:'「はじめまして、初音ミクです！」'},
+  {r:'小吉',d:'今天运气不错，去吃点葱吧 🥬',l:'「ネギをかじれば元気100倍！」'},
+  {r:'吉',d:'下一场Miku演唱会会有惊喜 ✨',l:'「歌に形はないけれど…」'},
+  {r:'大吉',d:'你今天闪闪发光！像ミク一样！🌟',l:'「光るなら ～ ✦」'},
+  {r:'凶',d:'不要灰心，ミク会保佑你的 🙏',l:'「大丈夫、きっと明日は晴れるよ」'},
+  {r:'末吉',d:'安静的一天，适合循环Miku的歌',l:'「静かな夜に 歌声が響く」'}
+];
+var fortuneUsed=-1;
+function flipFortune(){var card=document.getElementById('fortune-card');if(card.classList.contains('flipped'))return;var idx;do{idx=Math.floor(Math.random()*fortunes.length)}while(idx===fortuneUsed&&fortunes.length>1);fortuneUsed=idx;var f=fortunes[idx];document.getElementById('fortune-result').textContent=f.r;document.getElementById('fortune-desc').textContent=f.d;document.getElementById('fortune-lyric').textContent=f.l;card.classList.add('flipped')}
+function resetFortune(){var card=document.getElementById('fortune-card');card.classList.remove('flipped');fortuneUsed=-1}
 </script>
 </body>
 </html>
