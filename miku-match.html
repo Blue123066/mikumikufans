@@ -40,7 +40,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle
 .panel{width:min(100%,360px);border:1px solid rgba(57,197,187,0.26);border-radius:14px;background:rgba(8,24,21,0.9);padding:28px 22px;text-align:center;box-shadow:0 0 42px rgba(57,197,187,0.16)}
 .panel-title{font-family:Impact,"Arial Narrow",sans-serif;font-size:42px;letter-spacing:3px;line-height:0.92;background:linear-gradient(135deg,var(--mint),var(--miku),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
 .panel-sub{font-size:13px;color:var(--soft);letter-spacing:2px;line-height:1.7;margin-bottom:16px}
-.mascot{width:116px;height:154px;object-fit:contain;margin:4px auto 16px;display:block;filter:drop-shadow(0 0 18px rgba(57,197,187,.58))}
+.mascot{width:150px;height:150px;object-fit:contain;margin:0 auto 16px;display:block;filter:drop-shadow(0 0 18px rgba(57,197,187,.58))}
 .big-score{font-family:Impact,"Arial Narrow",sans-serif;font-size:58px;color:var(--mint);text-shadow:0 0 24px rgba(57,197,187,0.5);margin:8px 0 14px}
 .panel-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .ghost{height:42px;padding:0 22px;border:1px solid var(--line);border-radius:22px;background:rgba(221,251,248,0.08);color:var(--text);font-weight:900;letter-spacing:2px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
@@ -81,7 +81,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle
     <div class="panel">
       <div class="panel-title">MIKU<br>MATCH</div>
       <div class="panel-sub">把葱、音符和星星连成一排</div>
-      <img class="mascot" src="miku-chibi.svg?v=20260621-1" alt="Miku chibi">
+      <img class="mascot" src="miku-sprite.png?v=20260621-2" alt="Miku chibi">
       <div class="panel-actions">
         <button class="btn" type="button" onclick="startGame()">开始游戏</button>
         <a class="ghost" href="mikumikufans.html">回主页</a>
@@ -113,6 +113,7 @@ var icons=[
   {id:"headset",icon:"🎧",bg:"#321f42"}
 ];
 var board=[],selected=null,running=false,resolving=false,score=0,moves=0,time=60,energy=0,fever=0,timer=null,uid=1;
+var pointerStart=null,suppressClick=false;
 highEl.textContent=high;
 
 function wait(ms){return new Promise(function(resolve){setTimeout(resolve,ms)})}
@@ -163,7 +164,7 @@ function render(oldRects){
     var btn=document.createElement("button");
     btn.className="tile"+(selected===i?" selected":"")+(board[i].fresh?" pop":"");
     btn.type="button";btn.dataset.i=i;btn.dataset.uid=board[i].uid;btn.textContent=data.icon;btn.style.background=data.bg;
-    btn.onclick=function(){tap(Number(this.dataset.i))};
+    btn.onclick=function(){if(suppressClick){suppressClick=false;return}tap(Number(this.dataset.i))};
     boardEl.appendChild(btn);
     board[i].fresh=false;
   }
@@ -253,6 +254,26 @@ async function tap(i){
     updateHud();
   }
 }
+
+boardEl.addEventListener("pointerdown",function(e){
+  var tile=e.target.closest&&e.target.closest(".tile");
+  if(!tile||!running||resolving)return;
+  pointerStart={i:Number(tile.dataset.i),x:e.clientX,y:e.clientY};
+});
+boardEl.addEventListener("pointerup",function(e){
+  if(!pointerStart||!running||resolving)return;
+  var dx=e.clientX-pointerStart.x,dy=e.clientY-pointerStart.y;
+  var dist=Math.hypot(dx,dy);
+  if(dist<24){pointerStart=null;return}
+  var start=rc(pointerStart.i),target=start;
+  if(Math.abs(dx)>Math.abs(dy))target={r:start.r,c:start.c+(dx>0?1:-1)};
+  else target={r:start.r+(dy>0?1:-1),c:start.c};
+  pointerStart=null;
+  if(target.r<0||target.r>=size||target.c<0||target.c>=size)return;
+  suppressClick=true;
+  selected=idx(start.r,start.c);
+  tap(idx(target.r,target.c));
+});
 
 async function resolve(set,chain){
   resolving=true;

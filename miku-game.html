@@ -88,7 +88,7 @@ var player={x:0,targetX:0,y:0,w:70,h:100,vx:0,tilt:0,pulse:0};
 var state={running:false,score:0,combo:0,misses:0,time:60,energy:0,fever:0,slow:0,high:high};
 var items=[],particles=[],texts=[];
 var mikuImg=new Image();
-mikuImg.src="miku-chibi.svg?v=20260621-1";
+mikuImg.src="miku-sprite.png?v=20260621-2";
 var types=[
   {id:"leek",icon:"🥬",score:1,energy:7,miss:true,color:"#8df7a6",chance:58},
   {id:"gold",icon:"✨",score:5,energy:16,miss:false,color:"#ffd166",chance:12},
@@ -105,6 +105,7 @@ function fit(){
   canvas.style.width=w+"px";canvas.style.height=h+"px";
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.imageSmoothingEnabled=true;
+  ctx.imageSmoothingQuality="high";
   player.x=w/2;player.targetX=w/2;player.y=h-108;
 }
 window.addEventListener("resize",fit);
@@ -290,6 +291,11 @@ function drawMiku(now){
   var x=player.x,y=player.y;
   ctx.save();
   if(shake>0)ctx.translate((Math.random()-0.5)*10*shake,(Math.random()-0.5)*10*shake);
+  ctx.fillStyle=state.fever>0?"rgba(255,209,102,0.28)":"rgba(57,197,187,0.18)";
+  ctx.beginPath();ctx.ellipse(x,y-8,58+player.pulse*40,13+player.pulse*8,0,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle=state.fever>0?"rgba(255,209,102,0.7)":"rgba(141,247,231,0.28)";
+  ctx.lineWidth=2;
+  ctx.beginPath();ctx.ellipse(x,y-8,66+Math.sin(now*4)*3,16,0,0,Math.PI*2);ctx.stroke();
   var bob=Math.sin(now*7)*2.4;
   ctx.translate(x,y+bob);
   ctx.rotate(player.tilt);
@@ -302,7 +308,7 @@ function drawMiku(now){
   }
   ctx.shadowBlur=18;ctx.shadowColor="rgba(57,197,187,0.45)";
   if(mikuImg.complete&&mikuImg.naturalWidth>0){
-    ctx.drawImage(mikuImg,-72,-188,144,192);
+    ctx.drawImage(mikuImg,-109,-220,218,218);
   }else{
     ctx.fillStyle="#39c5bb";
     ctx.beginPath();ctx.ellipse(-34,-42,13,45,-0.3,0,Math.PI*2);ctx.fill();
@@ -318,6 +324,11 @@ function drawItems(){
   ctx.textAlign="center";ctx.textBaseline="middle";
   for(var i=0;i<items.length;i++){
     var it=items[i];
+    var groundAlpha=Math.max(0,Math.min(0.35,(it.y-80)/(h-180)));
+    if(groundAlpha>0){
+      ctx.fillStyle="rgba(57,197,187,"+groundAlpha+")";
+      ctx.beginPath();ctx.ellipse(it.x,player.y-10,10+it.r*0.45,3.5,0,0,Math.PI*2);ctx.fill();
+    }
     for(var j=0;j<it.trail.length;j++){
       var tr=it.trail[j];
       ctx.globalAlpha=Math.max(0,tr.life*2.8);
