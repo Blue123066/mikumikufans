@@ -165,6 +165,17 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .fortune-result{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:4px;background:linear-gradient(135deg,var(--ml),var(--miku),var(--md));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px;text-shadow:none}
 .fortune-desc{font-size:16px;font-weight:700;color:var(--w);line-height:1.6;margin-bottom:20px;letter-spacing:1px}
 .fortune-lyric{font-size:13px;color:var(--td);font-style:italic;border-top:1px solid var(--b);padding-top:14px;margin-top:8px;letter-spacing:1px;line-height:1.6}
+.game-hub{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.game-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;min-height:176px;padding:20px 18px;background:var(--s);border:1px solid var(--b);border-radius:10px;text-decoration:none;color:var(--t);overflow:hidden;transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s}
+.game-card::before{content:'';position:absolute;right:-34px;top:-38px;width:118px;height:118px;border-radius:50%;background:rgba(57,197,187,0.12);pointer-events:none}
+.game-card:hover{transform:translateY(-3px);border-color:var(--miku);box-shadow:0 0 26px var(--mx)}
+.game-card:active{transform:scale(0.97)}
+.game-card.alt::before{background:rgba(255,107,145,0.12)}
+.game-icon{font-size:42px;line-height:1;margin-bottom:18px;filter:drop-shadow(0 0 14px var(--mg))}
+.game-title{font-size:16px;font-weight:900;color:var(--w);letter-spacing:2px;margin-bottom:8px}
+.game-meta{font-size:12px;color:var(--td);line-height:1.7;letter-spacing:1px}
+.game-cta{margin-top:16px;display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 18px;border-radius:18px;background:linear-gradient(135deg,var(--miku),var(--md));color:var(--bg);font-size:12px;font-weight:900;letter-spacing:2px}
+.game-note{text-align:center;font-size:11px;color:var(--td);letter-spacing:1px;line-height:1.8}
 
 @media(max-width:740px){
   .nav .nb{font-size:13px;letter-spacing:3px;padding:13px 12px}.nav a{padding:13px 12px;letter-spacing:1.5px}
@@ -175,7 +186,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   .pr{align-items:center}.px{gap:20px}.pi .pa{font-size:34px}.seal{width:72px;height:72px;font-size:9px}
   .sb{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.sb .sbb{margin:0!important;min-width:128px}
   .content-page{padding:0 16px}.st{font-size:38px;letter-spacing:4px}.ss{letter-spacing:4px;margin-bottom:24px}.dc,.gf{padding:20px 18px}
-  .gg{grid-template-columns:repeat(2,1fr)}.to{grid-template-columns:1fr}.guest-grid{grid-template-columns:repeat(2,1fr)!important}.mplayer{padding:6px 10px;gap:8px}.mplayer .mp-btn{width:28px;height:28px;font-size:11px}.fortune-scene{max-width:280px;height:360px}.fortune-icon{font-size:60px}.fortune-front-text{font-size:22px}.fortune-result{font-size:32px}.sub-gallery{grid-template-columns:repeat(2,1fr)}
+  .gg{grid-template-columns:repeat(2,1fr)}.to{grid-template-columns:1fr}.game-hub{grid-template-columns:1fr}.guest-grid{grid-template-columns:repeat(2,1fr)!important}.mplayer{padding:6px 10px;gap:8px}.mplayer .mp-btn{width:28px;height:28px;font-size:11px}.fortune-scene{max-width:280px;height:360px}.fortune-icon{font-size:60px}.fortune-front-text{font-size:22px}.fortune-result{font-size:32px}.sub-gallery{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:420px){
   .bn{font-size:36px}.bs{font-size:13px;letter-spacing:5px}.ic .v{font-size:20px}.px{gap:14px}.pi .pa{font-size:32px}.seal{width:66px;height:66px}
@@ -487,12 +498,26 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       <button class="gbs" onclick="resetFortune()">🔄 再抽一次</button>
     </div>
     <div style="margin:36px 0 20px;border-top:1px solid var(--b)"></div>
-    <div style="font-size:13px;font-weight:900;color:var(--miku);letter-spacing:3px;margin-bottom:16px;padding-left:4px">🎮 接葱小游戏</div>
-    <div style="text-align:center;margin-bottom:16px">
-      <div style="font-size:48px;margin-bottom:12px"><svg width="48" height="64" viewBox="0 0 48 64"><ellipse cx="24" cy="46" rx="8" ry="18" fill="#e8f5e8"/><ellipse cx="24" cy="44" rx="9" ry="15" fill="#c8e8c8"/><path d="M18 36 Q20 20 16 8 Q18 4 22 6 Q24 18 22 36" fill="#7bc87b"/><path d="M22 36 Q24 16 24 4 Q28 0 30 6 Q28 18 26 36" fill="#90d090"/><path d="M26 36 Q30 20 32 8 Q34 4 30 2 Q28 14 28 36" fill="#6ab86a"/><rect x="16" y="42" width="16" height="8" rx="4" fill="#e0f0e0"/><line x1="20" y1="50" x2="28" y2="50" stroke="#ccc" stroke-width="2"/></svg></div>
-      <a href="miku-game.html" style="display:inline-block;padding:12px 32px;background:linear-gradient(135deg,var(--miku),var(--md));color:var(--bg);border:none;border-radius:24px;font-weight:700;cursor:pointer;letter-spacing:2px;font-family:inherit;text-decoration:none;font-size:14px">▶ 开始游戏</a>
-      <div style="font-size:11px;color:var(--td);margin-top:8px">新窗口打开 ← → 方向键 / 手指拖动</div>
+    <div style="font-size:13px;font-weight:900;color:var(--miku);letter-spacing:3px;margin-bottom:16px;padding-left:4px">🎮 MIKU 小游戏</div>
+    <div class="game-hub">
+      <a class="game-card" href="miku-game.html">
+        <div>
+          <div class="game-icon">🥬</div>
+          <div class="game-title">接住大葱</div>
+          <div class="game-meta">连击 · 金葱 · MIKU TIME</div>
+        </div>
+        <span class="game-cta">开始挑战</span>
+      </a>
+      <a class="game-card alt" href="miku-match.html">
+        <div>
+          <div class="game-icon">🎤</div>
+          <div class="game-title">Miku 消消乐</div>
+          <div class="game-meta">连锁 · FEVER · 最高分</div>
+        </div>
+        <span class="game-cta">开始消除</span>
+      </a>
     </div>
+    <div class="game-note">两个小游戏都会在本机保存最高分</div>
   </div>
   <div class="footer">© 2026 MIKUMIKUFANS · 初音ミク非官方应援站</div>
 </div>
