@@ -6,10 +6,15 @@
 <title>Miku 消消乐 · MIKUMIKUFANS</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--miku:#39c5bb;--mint:#8df7e7;--bg:#071210;--panel:#0d211e;--panel2:#132c28;--line:rgba(57,197,187,0.22);--text:#ddfbf8;--soft:rgba(221,251,248,0.58);--gold:#ffd166;--pink:#ff6b91}
-body{min-height:100vh;min-height:100dvh;background:#071210;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;display:grid;place-items:center;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
-body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 50% 12%,rgba(57,197,187,0.18),transparent 34%),radial-gradient(circle at 82% 76%,rgba(255,107,145,0.09),transparent 28%),linear-gradient(180deg,#071210,#0b211e);pointer-events:none}
-.app{position:relative;width:min(100vw - 18px,540px);min-height:min(100dvh - 18px,720px);border:1px solid var(--line);border-radius:14px;background:rgba(9,25,22,0.9);box-shadow:0 22px 80px rgba(0,0,0,0.46),0 0 48px rgba(57,197,187,0.14);padding:14px;overflow:hidden}
+:root{--miku:#39c5bb;--mint:#8df7e7;--bg:#071714;--panel:#0b211e;--panel2:#102b27;--line:rgba(57,197,187,0.30);--text:#ddfbf8;--soft:rgba(221,251,248,0.62);--gold:#ffd166;--pink:#ff6b91;--violet:#b69cff;--cyan:#77ddff}
+body{min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;display:grid;place-items:center;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 50% 10%,rgba(57,197,187,0.24),transparent 33%),radial-gradient(circle at 84% 70%,rgba(255,107,145,0.10),transparent 28%),radial-gradient(circle at 16% 84%,rgba(255,209,102,0.08),transparent 26%),linear-gradient(180deg,#071714,#0d2925);pointer-events:none}
+body::after{content:"";position:fixed;inset:0;background:linear-gradient(115deg,transparent 0 28%,rgba(141,247,231,.035) 29% 30%,transparent 31% 58%,rgba(255,209,102,.03) 59% 60%,transparent 61%);background-size:220px 220px;animation:bgShift 12s linear infinite;pointer-events:none}
+@keyframes bgShift{to{background-position:220px 220px}}
+.app{position:relative;width:min(100vw - 18px,540px);min-height:min(100dvh - 18px,720px);border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(8,28,25,0.94),rgba(5,17,15,0.94));box-shadow:0 22px 80px rgba(0,0,0,0.46),0 0 58px rgba(57,197,187,0.18);padding:14px;overflow:hidden}
+.app::before{content:"";position:absolute;inset:-1px;background:linear-gradient(120deg,transparent,rgba(141,247,231,.14),transparent 46%,rgba(255,209,102,.08),transparent);opacity:.55;pointer-events:none;animation:stageGlow 5s ease-in-out infinite alternate}
+@keyframes stageGlow{from{transform:translateX(-18%)}to{transform:translateX(18%)}}
+.app.fevering{box-shadow:0 22px 80px rgba(0,0,0,0.48),0 0 72px rgba(255,209,102,0.32),0 0 100px rgba(57,197,187,0.22)}
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
 .brand{min-width:0}
 .brand h1{font-family:Impact,"Arial Narrow",sans-serif;font-size:32px;letter-spacing:3px;line-height:0.95;background:linear-gradient(135deg,var(--mint),var(--miku),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -21,13 +26,27 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle
 .stat strong{font-size:18px;color:var(--mint);line-height:1}
 .meter{height:12px;border:1px solid var(--line);border-radius:999px;background:rgba(7,18,16,0.55);overflow:hidden;margin-bottom:12px}
 .meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--miku),var(--gold),var(--pink));transition:width 0.2s;box-shadow:0 0 18px rgba(255,209,102,0.45)}
-.board-wrap{position:relative;width:100%;aspect-ratio:1;border:1px solid rgba(57,197,187,0.24);border-radius:12px;background:linear-gradient(180deg,rgba(19,44,40,0.88),rgba(8,22,20,0.9));padding:8px;box-shadow:inset 0 0 28px rgba(57,197,187,0.07)}
+.board-wrap{position:relative;width:100%;aspect-ratio:1;border:1px solid rgba(57,197,187,0.34);border-radius:12px;background:radial-gradient(circle at 50% 10%,rgba(57,197,187,.18),transparent 34%),linear-gradient(180deg,rgba(19,50,45,0.92),rgba(7,20,18,0.94));padding:8px;box-shadow:inset 0 0 34px rgba(57,197,187,0.12),0 0 28px rgba(57,197,187,.10);overflow:hidden}
+.board-wrap::before{content:"";position:absolute;inset:8px;border-radius:10px;background:linear-gradient(180deg,transparent,rgba(141,247,231,.16),transparent);height:22%;animation:scan 2.6s linear infinite;pointer-events:none;z-index:1}
+.board-wrap::after{content:"";position:absolute;inset:8px;border-radius:10px;background-image:linear-gradient(rgba(141,247,231,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(141,247,231,.08) 1px,transparent 1px);background-size:32px 32px;mix-blend-mode:screen;pointer-events:none;z-index:0}
+@keyframes scan{from{transform:translateY(-110%)}to{transform:translateY(430%)}}
 .board{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(7,1fr);gap:6px;width:100%;height:100%;position:relative}
-.tile{border:1px solid rgba(255,255,255,0.08);border-radius:10px;background:var(--panel2);font-size:clamp(22px,7.2vw,38px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.18s cubic-bezier(.2,.8,.2,1),box-shadow 0.18s,border-color 0.18s,opacity 0.18s;font-family:"Apple Color Emoji","Segoe UI Emoji",sans-serif;box-shadow:inset 0 -8px 18px rgba(0,0,0,0.16);will-change:transform,opacity;touch-action:manipulation}
-.tile:hover{border-color:rgba(141,247,231,0.58);box-shadow:0 0 18px rgba(57,197,187,0.18),inset 0 -8px 18px rgba(0,0,0,0.16)}
-.tile.selected{transform:scale(0.9);border-color:var(--gold);box-shadow:0 0 22px rgba(255,209,102,0.58),inset 0 -8px 18px rgba(0,0,0,0.16)}
-.tile.pop{animation:pop 0.28s cubic-bezier(.2,.9,.2,1.15)}
-@keyframes pop{0%{transform:scale(0.4);opacity:0}70%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+.tile{position:relative;z-index:2;width:100%;height:100%;border:1px solid rgba(222,251,248,0.10);border-radius:10px;background:var(--tile-bg,var(--panel2));color:var(--tile-color,var(--mint));font-size:clamp(19px,6.4vw,34px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.18s cubic-bezier(.2,.8,.2,1),box-shadow 0.18s,border-color 0.18s,opacity 0.18s,filter .18s;font-family:Impact,"Arial Narrow","PingFang SC",sans-serif;font-weight:900;letter-spacing:.5px;text-shadow:0 0 10px var(--tile-glow,rgba(57,197,187,.6));box-shadow:inset 0 -10px 22px rgba(0,0,0,0.22),0 0 14px rgba(57,197,187,0.08);will-change:transform,opacity;touch-action:manipulation;overflow:hidden}
+.tile::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.22),transparent 42%,rgba(255,255,255,.05));opacity:.55;pointer-events:none}
+.tile::after{content:"";position:absolute;left:14%;right:14%;bottom:9px;height:2px;border-radius:999px;background:var(--tile-glow,rgba(57,197,187,.6));box-shadow:0 0 12px var(--tile-glow,rgba(57,197,187,.6));opacity:.56}
+.tile:hover{border-color:rgba(141,247,231,0.68);box-shadow:0 0 22px var(--tile-glow,rgba(57,197,187,.28)),inset 0 -10px 22px rgba(0,0,0,0.20);filter:brightness(1.12)}
+.tile.selected{transform:scale(0.9);border-color:var(--gold);box-shadow:0 0 26px rgba(255,209,102,0.68),0 0 38px var(--tile-glow,rgba(57,197,187,.22)),inset 0 -10px 22px rgba(0,0,0,0.20)}
+.tile.pop{animation:pop 0.34s cubic-bezier(.2,.9,.2,1.15)}
+@keyframes pop{0%{transform:scale(0.76) rotate(-3deg);opacity:.45;filter:brightness(1.75) saturate(1.35)}68%{transform:scale(1.04) rotate(1deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
+.fx-layer{position:absolute;inset:8px;z-index:4;pointer-events:none;overflow:hidden;border-radius:10px}
+.fx-ring{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border:2px solid var(--fx,#8df7e7);border-radius:50%;box-shadow:0 0 18px var(--fx,#8df7e7);animation:ring .55s cubic-bezier(.2,.8,.2,1) forwards}
+.fx-spark{position:absolute;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--fx,#8df7e7);box-shadow:0 0 12px var(--fx,#8df7e7);animation:spark .62s cubic-bezier(.15,.7,.2,1) forwards}
+.fx-note{position:absolute;margin:-14px 0 0 -8px;color:var(--fx,#8df7e7);font-size:20px;font-weight:900;text-shadow:0 0 12px var(--fx,#8df7e7);animation:noteRise .8s ease-out forwards}
+.combo-flash{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:Impact,"Arial Narrow",sans-serif;font-size:42px;color:var(--gold);letter-spacing:2px;text-shadow:0 0 18px rgba(255,209,102,.8),0 0 34px rgba(57,197,187,.5);animation:comboFlash .72s ease-out forwards;white-space:nowrap}
+@keyframes ring{to{transform:scale(2.3);opacity:0}}
+@keyframes spark{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+@keyframes noteRise{to{transform:translateY(-44px) rotate(12deg);opacity:0}}
+@keyframes comboFlash{0%{transform:translate(-50%,-50%) scale(.7);opacity:0}20%{opacity:1}100%{transform:translate(-50%,-72%) scale(1.28);opacity:0}}
 .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .btn{height:42px;border:0;border-radius:22px;background:linear-gradient(135deg,var(--miku),#1a8a82);color:#061210;font-weight:900;letter-spacing:2px;font-family:inherit;cursor:pointer;transition:transform 0.16s,box-shadow 0.16s}
 .btn:hover{box-shadow:0 0 22px rgba(57,197,187,0.38)}
@@ -40,9 +59,10 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle
 .panel{width:min(100%,360px);border:1px solid rgba(57,197,187,0.26);border-radius:14px;background:rgba(8,24,21,0.9);padding:28px 22px;text-align:center;box-shadow:0 0 42px rgba(57,197,187,0.16)}
 .panel-title{font-family:Impact,"Arial Narrow",sans-serif;font-size:42px;letter-spacing:3px;line-height:0.92;background:linear-gradient(135deg,var(--mint),var(--miku),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
 .panel-sub{font-size:13px;color:var(--soft);letter-spacing:2px;line-height:1.7;margin-bottom:16px}
-.mascot{width:150px;height:150px;object-fit:contain;margin:0 auto 16px;display:block;filter:drop-shadow(0 0 18px rgba(57,197,187,.58))}
+.mascot{width:150px;height:150px;object-fit:contain;margin:0 auto 16px;display:block;filter:saturate(1.12) hue-rotate(-4deg) brightness(1.05) drop-shadow(0 0 18px rgba(57,197,187,.62)) drop-shadow(0 0 4px rgba(141,247,231,.35))}
 .big-score{font-family:Impact,"Arial Narrow",sans-serif;font-size:58px;color:var(--mint);text-shadow:0 0 24px rgba(57,197,187,0.5);margin:8px 0 14px}
 .panel-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.panel-actions .btn{min-width:132px;padding:0 22px}
 .ghost{height:42px;padding:0 22px;border:1px solid var(--line);border-radius:22px;background:rgba(221,251,248,0.08);color:var(--text);font-weight:900;letter-spacing:2px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
 @media(max-width:560px){
   .app{width:100vw;min-height:100dvh;border:0;border-radius:0;padding:10px}
@@ -58,7 +78,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle
   <header class="top">
     <div class="brand">
       <h1>MIKU MATCH</h1>
-      <p>60 秒消消乐挑战</p>
+      <p>连锁舞台 · FEVER 消除</p>
     </div>
     <a class="back" href="mikumikufans.html">返回主页</a>
   </header>
@@ -71,16 +91,17 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle
   <div class="meter"><i id="meter"></i></div>
   <section class="board-wrap">
     <div class="board" id="board"></div>
+    <div class="fx-layer" id="fx-layer"></div>
   </section>
   <div class="controls">
     <button class="btn" type="button" onclick="startGame()">重新开始</button>
     <button class="btn fever" id="fever" type="button" onclick="activateFever()">MIKU FEVER</button>
   </div>
-  <div class="status" id="status">交换相邻图标，三个以上就会消除</div>
+  <div class="status" id="status">滑动交换元素，连锁越高舞台越亮</div>
   <div class="overlay" id="overlay">
     <div class="panel">
       <div class="panel-title">MIKU<br>MATCH</div>
-      <div class="panel-sub">把葱、音符和星星连成一排</div>
+      <div class="panel-sub">Miku 色彩连锁消除</div>
       <img class="mascot" src="miku-sprite.png?v=20260621-3" alt="Miku sprite">
       <div class="panel-actions">
         <button class="btn" type="button" onclick="startGame()">开始游戏</button>
@@ -93,7 +114,10 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle
 <script>
 (function(){
 var size=7;
+var app=document.querySelector(".app");
 var boardEl=document.getElementById("board");
+var boardWrap=document.querySelector(".board-wrap");
+var fxLayer=document.getElementById("fx-layer");
 var scoreEl=document.getElementById("score");
 var timeEl=document.getElementById("time");
 var movesEl=document.getElementById("moves");
@@ -105,18 +129,80 @@ var overlay=document.getElementById("overlay");
 var highKey="mikuMatchHigh";
 var high=Number(localStorage.getItem(highKey)||0);
 var icons=[
-  {id:"leek",icon:"🥬",bg:"#123f30"},
-  {id:"mic",icon:"🎤",bg:"#172f3d"},
-  {id:"note",icon:"🎵",bg:"#1b3552"},
-  {id:"star",icon:"⭐",bg:"#453713"},
-  {id:"heart",icon:"💚",bg:"#173d2a"},
-  {id:"headset",icon:"🎧",bg:"#321f42"}
+  {id:"leek",icon:"葱",label:"Negi",bg:"linear-gradient(145deg,#0f4a3d,#102722)",color:"#8df7e7",glow:"#39c5bb"},
+  {id:"mic",icon:"MIC",label:"Mic",bg:"linear-gradient(145deg,#123251,#091b28)",color:"#77ddff",glow:"#77ddff"},
+  {id:"note",icon:"♪",label:"Note",bg:"linear-gradient(145deg,#153f49,#0c252b)",color:"#8df7e7",glow:"#39c5bb"},
+  {id:"star",icon:"★",label:"Star",bg:"linear-gradient(145deg,#594214,#211709)",color:"#ffd166",glow:"#ffd166"},
+  {id:"heart",icon:"01",label:"01",bg:"linear-gradient(145deg,#263f39,#101e1b)",color:"#ff6b91",glow:"#ff6b91"},
+  {id:"headset",icon:"M",label:"Miku",bg:"linear-gradient(145deg,#26364c,#111827)",color:"#b69cff",glow:"#b69cff"}
 ];
 var board=[],selected=null,running=false,resolving=false,score=0,moves=0,time=60,energy=0,fever=0,timer=null,uid=1;
 var pointerStart=null,suppressClick=false;
+var audio=null,master=null;
 highEl.textContent=high;
 
 function wait(ms){return new Promise(function(resolve){setTimeout(resolve,ms)})}
+function ensureAudio(){
+  if(audio)return;
+  try{
+    audio=new (window.AudioContext||window.webkitAudioContext)();
+    master=audio.createGain();
+    master.gain.value=.16;
+    master.connect(audio.destination);
+  }catch(e){}
+}
+function tone(freq,dur,type,gain,delay){
+  if(!audio)return;
+  var t=audio.currentTime+(delay||0);
+  var osc=audio.createOscillator(),g=audio.createGain();
+  osc.type=type||"sine";
+  osc.frequency.setValueAtTime(freq,t);
+  g.gain.setValueAtTime(gain||.04,t);
+  g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  osc.connect(g);g.connect(master||audio.destination);
+  osc.start(t);osc.stop(t+dur);
+}
+function playClear(count,chain){
+  if(!audio)return;
+  var base=chain>1?660:523;
+  tone(base,.08,"triangle",.04,0);
+  tone(base*1.25,.08,"triangle",.035,.045);
+  if(count>=4)tone(base*1.5,.12,"sine",.035,.09);
+}
+function playFever(){
+  if(!audio)return;
+  [523,659,784,1046].forEach(function(f,i){tone(f,.18,"triangle",.04,i*.055)});
+}
+function tileCenter(i){
+  var el=boardEl.querySelector('.tile[data-i="'+i+'"]');
+  if(!el)return null;
+  var r=el.getBoundingClientRect(),wr=fxLayer.getBoundingClientRect();
+  return {x:r.left-wr.left+r.width/2,y:r.top-wr.top+r.height/2};
+}
+function addFx(type,x,y,color,vars,text){
+  var el=document.createElement("span");
+  el.className=type;el.style.left=x+"px";el.style.top=y+"px";el.style.setProperty("--fx",color);
+  if(vars){Object.keys(vars).forEach(function(k){el.style.setProperty(k,vars[k])})}
+  if(text)el.textContent=text;
+  fxLayer.appendChild(el);
+  setTimeout(function(){el.remove()},900);
+}
+function burstTile(i,color,chain){
+  var p=tileCenter(i);if(!p)return;
+  addFx("fx-ring",p.x,p.y,color);
+  for(var s=0;s<10;s++){
+    var a=Math.PI*2*(s/10)+Math.random()*.35;
+    var d=28+Math.random()*38+(chain||1)*4;
+    addFx("fx-spark",p.x,p.y,color,{"--dx":Math.cos(a)*d+"px","--dy":Math.sin(a)*d+"px"});
+  }
+  if(Math.random()<.65)addFx("fx-note",p.x,p.y,color,null,Math.random()<.5?"♪":"✦");
+}
+function comboFlash(text){
+  var el=document.createElement("div");
+  el.className="combo-flash";el.textContent=text;
+  fxLayer.appendChild(el);
+  setTimeout(function(){el.remove()},760);
+}
 function randomType(){return icons[Math.floor(Math.random()*icons.length)].id}
 function makeTile(type){return {uid:uid++,type:type||randomType(),fresh:true}}
 function typeAt(i){return board[i]&&board[i].type}
@@ -154,6 +240,7 @@ function updateHud(){
   meterEl.style.width=Math.min(100,energy)+"%";
   feverBtn.classList.toggle("ready",energy>=100&&running&&!resolving);
   feverBtn.textContent=fever>0?"FEVER "+Math.ceil(fever):"MIKU FEVER";
+  app.classList.toggle("fevering",fever>0);
 }
 
 function render(oldRects){
@@ -163,7 +250,10 @@ function render(oldRects){
     var data=iconOf(board[i].type);
     var btn=document.createElement("button");
     btn.className="tile"+(selected===i?" selected":"")+(board[i].fresh?" pop":"");
-    btn.type="button";btn.dataset.i=i;btn.dataset.uid=board[i].uid;btn.textContent=data.icon;btn.style.background=data.bg;
+    btn.type="button";btn.dataset.i=i;btn.dataset.uid=board[i].uid;btn.textContent=data.icon;btn.setAttribute("aria-label",data.label);
+    btn.style.setProperty("--tile-bg",data.bg);
+    btn.style.setProperty("--tile-color",data.color);
+    btn.style.setProperty("--tile-glow",data.glow);
     btn.onclick=function(){if(suppressClick){suppressClick=false;return}tap(Number(this.dataset.i))};
     boardEl.appendChild(btn);
     board[i].fresh=false;
@@ -211,17 +301,19 @@ function findMatches(){
   return {groups:groups,set:set};
 }
 
-async function animateClear(set){
+async function animateClear(set,chain){
   var anims=[];
   set.forEach(function(i){
     var el=boardEl.querySelector('.tile[data-i="'+i+'"]');
     if(!el)return;
+    var data=iconOf(board[i]&&board[i].type);
+    burstTile(i,data.glow,chain||1);
     if(Element.prototype.animate){
       var anim=el.animate([
-        {transform:"scale(1)",opacity:1,filter:"brightness(1)"},
-        {transform:"scale(1.16)",opacity:1,filter:"brightness(1.45)"},
-        {transform:"scale(0.18) rotate(12deg)",opacity:0,filter:"brightness(1.7)"}
-      ],{duration:260,easing:"cubic-bezier(.2,.8,.2,1)"});
+        {transform:"scale(1) rotate(0)",opacity:1,filter:"brightness(1)"},
+        {transform:"scale(1.2) rotate(-4deg)",opacity:1,filter:"brightness(1.75) saturate(1.4)"},
+        {transform:"scale(0.12) rotate(18deg)",opacity:0,filter:"brightness(2.1) saturate(1.8)"}
+      ],{duration:320,easing:"cubic-bezier(.16,.9,.2,1)"});
       anims.push(anim.finished.catch(function(){}));
     }else{
       el.style.opacity="0";
@@ -278,12 +370,14 @@ boardEl.addEventListener("pointerup",function(e){
 async function resolve(set,chain){
   resolving=true;
   var count=set.size;
-  var gain=count*10*chain*(fever>0?2:1);
+  var gain=(count*16*chain+Math.max(0,count-3)*28)*(fever>0?3:1);
   score+=gain;
-  energy=Math.min(100,energy+count*4+Math.max(0,chain-1)*6);
+  energy=Math.min(100,energy+count*5+Math.max(0,chain-1)*10);
   statusEl.textContent=(chain>1?"连锁 "+chain+" · ":"")+"+"+gain;
+  playClear(count,chain);
+  if(chain>1||count>=4)comboFlash((chain>1?"CHAIN "+chain:"MIKU BURST")+" +"+gain);
   updateHud();
-  await animateClear(set);
+  await animateClear(set,chain);
   set.forEach(function(i){board[i]=null});
   var old=captureRects();
   collapse();
@@ -342,6 +436,7 @@ function shuffleBoard(animated){
 async function activateFever(){
   if(!running||resolving||energy<100)return;
   resolving=true;energy=0;fever=7;
+  playFever();
   var counts={};
   board.forEach(function(v){counts[v.type]=(counts[v.type]||0)+1});
   var target=board[0].type,max=0;
@@ -349,6 +444,7 @@ async function activateFever(){
   var set=new Set();
   board.forEach(function(v,i){if(v.type===target)set.add(i)});
   statusEl.textContent="MIKU FEVER!";
+  comboFlash("MIKU FEVER!");
   await resolve(set,2);
 }
 
@@ -361,8 +457,11 @@ function tick(){
 }
 
 function startGame(){
+  ensureAudio();
+  if(audio&&audio.state==="suspended")audio.resume();
   score=0;moves=0;time=60;energy=0;fever=0;selected=null;running=true;resolving=false;
-  fillBoard();overlay.classList.add("hidden");statusEl.textContent="交换相邻图标，三个以上就会消除";render();
+  fxLayer.innerHTML="";
+  fillBoard();overlay.classList.add("hidden");statusEl.textContent="滑动交换元素，连锁越高舞台越亮";render();
   clearInterval(timer);timer=setInterval(tick,250);
 }
 
@@ -370,7 +469,8 @@ function endGame(){
   if(!running)return;
   running=false;clearInterval(timer);
   if(score>high){high=score;localStorage.setItem(highKey,String(high))}
-  var rank=score>=3200?"世界第一公主殿下":score>=2200?"连锁大师":score>=1200?"应援达人":"节奏练习生";
+  fever=0;app.classList.remove("fevering");
+  var rank=score>=12000?"世界第一公主殿下":score>=8000?"连锁大师":score>=4200?"应援达人":"节奏练习生";
   overlay.innerHTML='<div class="panel"><div class="panel-title">RESULT</div><div class="panel-sub">'+rank+'</div><div class="big-score">'+score+'</div><div class="panel-sub">步数 '+moves+' · 最高分 '+high+'</div><div class="panel-actions"><button class="btn" type="button" onclick="startGame()">再来一次</button><a class="ghost" href="mikumikufans.html">回主页</a></div></div>';
   overlay.classList.remove("hidden");render();
 }
