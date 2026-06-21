@@ -88,7 +88,7 @@ var player={x:0,targetX:0,y:0,w:70,h:100,vx:0,tilt:0,pulse:0};
 var state={running:false,score:0,combo:0,misses:0,time:60,energy:0,fever:0,slow:0,high:high};
 var items=[],particles=[],texts=[];
 var mikuImg=new Image();
-mikuImg.src="miku-sprite.png?v=20260621-2";
+mikuImg.src="miku-sprite.png?v=20260621-3";
 var types=[
   {id:"leek",icon:"🥬",score:1,energy:7,miss:true,color:"#8df7a6",chance:58},
   {id:"gold",icon:"✨",score:5,energy:16,miss:false,color:"#ffd166",chance:12},
@@ -308,7 +308,9 @@ function drawMiku(now){
   }
   ctx.shadowBlur=18;ctx.shadowColor="rgba(57,197,187,0.45)";
   if(mikuImg.complete&&mikuImg.naturalWidth>0){
-    ctx.drawImage(mikuImg,-109,-220,218,218);
+    var spriteH=224;
+    var spriteW=spriteH*(mikuImg.naturalWidth/mikuImg.naturalHeight);
+    ctx.drawImage(mikuImg,-spriteW/2,-spriteH,spriteW,spriteH);
   }else{
     ctx.fillStyle="#39c5bb";
     ctx.beginPath();ctx.ellipse(-34,-42,13,45,-0.3,0,Math.PI*2);ctx.fill();
